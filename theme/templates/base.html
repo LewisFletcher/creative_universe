@@ -37,8 +37,10 @@
 	<body class="antialiased text-white font-sans leading-normal tracking-normal bg-black w-full bg-cover" style="background-image: url('{% static 'universe_lg_b.png' %}')">
 		{% include 'navbar.html' %}
 		<span class="" id="hiddennav">
-		{% block content %}
-		{% endblock %}
+			<div class="w-full sm:w-9/12 lg:w-8/12 px-4 sm:pr-2 lg:pr-4 mx-auto md:mt-auto">
+				{% block content %}
+				{% endblock %}
+			</div>
 
 		<script>
 			function toggle(hidden) {

@@ -1,7 +1,25 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block content %}
-<div class="flex text-xl justify-center">
-    <h1 class="text-3xl my-3">Welcome to Creative Universe!</h1>
+<div class="flex flex-row justify-center px-8">
+    <h1 class="text-2xl md:text-3xl my-3">Welcome to Creative Universe!</h1>
+</div>
+<div class="flex flex-row justify-center">
+    <div class="flex flex-row justify-center bg-cover rounded-full w-3/4 py-2 px-2" style="background-image: url('{% static 'blackhole_o.png' %}')">
+        <img src="{% static 'headshot.jpg' %}" class="hidden sm:block shrink max-h-32 md:max-h-40 w-auto my-auto rounded-full brightness-75 hover:hue-rotate-60 border-4 border-slate-800" alt="Katelyn Stephens">
+        <span class="flex flex-col md:justify-center shrink">
+            <p class="px-8 py-8 md:py-4 md:px-4 max-w-screen-md">Creative Universe Art is a portal to all things Katelyn! Katelyn Stephens is an artist in Tucson, AZ. She enjoys hiking, painting, videography, and music.</p>
+        <span>
+    </div>
+</div>
+<div class="flex flex-row justify-center px-8">
+    <h1 class="text-xl md:text-2xl my-3">Recent Art</h1>
+</div>
+<div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto w-3/4 xl:w-3/4 mb-4">
+    <div class="bg-slate-600 overflow-hidden md:w-64 w-64 mx-2 bg-opacity-25">
+        <a href="#" target="_blank" rel="noreferrer"><img src="{% static 'headshot.jpg' %}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
+        <a href="#" target="_blank" rel="noreferrer"><h2 class="font-bold bold_underline pl-1">title here</h2></a>
+        <h2 class="font-medium text-sm pl-1">Info here</h2>    
+    </div>
 </div>
 {% endblock %}
