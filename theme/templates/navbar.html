@@ -1,0 +1,48 @@
+{% load static %}
+<nav role="navigation" class="md:flex md:justify-between md:items-center p-1 text-white shadow-lg" style="background-image: url('{% static 'universe_nav2.png' %}')">
+    <div class="flex justify-between items-center">
+        <a href="/" class="flex items-center">
+            <img src="#" class="inline h-12 px-2 pt-1 pb-1" alt="Logo"/>
+            <span class="mx-0 sm:mx-2 my-2 border-b-1 border-transparent hover:border-gray-400 border-opacity-25 self-center text-3xl font-semibold whitespace-nowrap text-slate-300 hover:text-violet-900 transition-all duration-500">Creative Universe</span>
+        </a>
+        <button class="mobile-menu-button text-3xl cursor-pointer mx-2 md:hidden block" id="menu">
+            <ion-icon name="menu" id="menubutton" onclick="toggle(hidden)"></ion-icon>         
+        </button>
+    </div>
+    <div class="hidden md:block" id="mobilenav">
+        <ul id="background" class="w-full h-full flex flex-col md:flex-row items-center text-white text-2xl md:text-base font-medium md:z-auto md:static absolute left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 bg-cover md:bg-none md:top-[-400px] transitional-all ease-in duration-500" style="">
+            <li class="mx-8 my-6 md:my-0 {% if request.path == '/' %}active:font-extrabold text-white{% endif %}">
+            <a class="text-2xl" href="/">Home</a>            
+            </li>
+            <li class="mx-8 my-6 md:my-0 {% if '#' in request.path %}active:font-extrabold text-white{% endif %}">
+            <a class="text-2xl" href="#">Shop</a>            
+            </li>
+            <li class="mx-8 my-6 md:my-0 {% if '#/' in request.path %}active:font-extrabold text-white{% endif %}">
+            <a class="text-2xl" href="#">Art</a>            
+            </li>
+            <li class="mx-8 my-6 md:my-0 {% if '#' in request.path  %}active:font-extrabold text-white{% endif %}">
+            <a class="text-2xl" href="#">About</a>
+            </li>
+        </ul>
+    </div>
+    <span class="md:block hidden">
+        <a href="https://instagram.com/creativeuniverseart" target="_blank" class="
+            text-gray-400
+            hover:text-slate-900
+            pl-3
+            py-2
+            pr-5
+            rounded-md
+            font-medium                
+        "><i class="fab fa-instagram"></i></a>
+        <a href="https://twitter.com/creativeuniverseart" target="_blank" class="
+            text-gray-400
+            hover:text-slate-900
+            pl-3
+            py-2
+            pr-5
+            rounded-md
+            font-medium                
+        "><i class="fab fa-twitter"></i></a>
+    </span>
+</nav>

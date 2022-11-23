@@ -1,0 +1,75 @@
+{% load static tailwind_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<title>{% block sitetitle %}Creative Universe Art{% endblock %}</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="description" content="Creative Universe Art is Katelyn Stephens art hosting platform. Check out her art and purchase your today!">
+    	<meta name="author" content="Katelyn Stephens">
+		<meta property="og:type" content="website">
+		<meta property="og:locale" content="en_US">
+		<meta property="og:site_name" content="Creative Universe Art">
+		<meta property="og:site_creator" content="Lewis Fletcher">
+		<meta property="og:url" content="#">
+		<meta property="og:description" content="{% block meta_description %}Creative Universe Art is Katelyn Stephens art hosting platform. Check out her art and purchase your today!{% endblock %}">
+		<meta property="og:image" content="">
+		<meta name="twitter:site" content="">
+		<meta name="twitter:title" content="">
+		<meta name="twitter:description" content="">
+		<meta name="twitter:url" content="">
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:image" content="">
+		<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+		<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+		<script src="https://unpkg.com/htmx.org@1.8.2"></script>
+		<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+		<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	  	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+		{% block head %}
+		
+		{% endblock %}
+		{% tailwind_css %}
+	</head>
+
+	<body class="antialiased text-white font-sans leading-normal tracking-normal bg-black w-full bg-cover" style="background-image: url('{% static 'universe_lg_b.png' %}')">
+		{% include 'navbar.html' %}
+		<span class="" id="hiddennav">
+		{% block content %}
+		{% endblock %}
+
+		<script>
+			function toggle(hidden) {
+				var elem = document.getElementById("mobilenav")
+				var elem2 = document.getElementById("hiddennav")
+				var elem3 = document.getElementById("menubutton")
+				var elem4 = document.getElementById("background")
+				if (elem.classList.contains("hidden")) {
+					elem.classList.remove('hidden');
+					elem2.classList.add('hidden');
+					elem3.setAttribute('name', 'close');
+					elem4.setAttribute('style', "background-image: url('{% static 'universe_mob2.png' %}')")
+				} else {
+					elem.classList.add('hidden');
+					elem2.classList.remove('hidden')
+					elem3.setAttribute('name', 'menu');
+					elem4.setAttribute('style', "")
+				}
+			}
+		</script>
+		  <footer>
+			<hr class="mt-8 border-black">
+			<div class="flex flex-wrap items-center md:justify-between justify-center bg-black-800 bg-opacity-25">
+				<div class="w-full md:w-4/12 px-4 mx-auto text-center">
+				  <div class="text-sm text-slate-500 font-semibold py-10">
+					© Creative Universe Art
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </footer>
+		</span>  
+	</body>
+</html>
