@@ -16,10 +16,33 @@
     <h1 class="text-xl md:text-2xl my-3">Recent Art</h1>
 </div>
 <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto w-3/4 xl:w-3/4 mb-4">
-    <div class="bg-slate-600 overflow-hidden md:w-64 w-64 mx-2 bg-opacity-25">
-        <a href="#" target="_blank" rel="noreferrer"><img src="{% static 'headshot.jpg' %}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
-        <a href="#" target="_blank" rel="noreferrer"><h2 class="font-bold bold_underline pl-1">title here</h2></a>
-        <h2 class="font-medium text-sm pl-1">Info here</h2>    
+    {% if recent_art %}
+    {% for art in recent_art %}
+    <div class="bg-slate-600 overflow-hidden md:w-64 w-64 mx-2 bg-opacity-25 rounded-b-lg">
+        <a href="#" target="_blank" rel="noreferrer"><img src="{{ art.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
+        <a href="#" target="_blank" rel="noreferrer"><h2 class="font-bold bold_underline pl-1">{{ art.title }}</h2></a>
+        <h2 class="font-medium text-sm pl-1">{{ art.description }}</h2>    
     </div>
+    {% endfor %}
+    {% else %}
+    <p>No art to display at this time.</p>
+    {% endif %}
 </div>
+<div class="flex flex-row justify-center px-8">
+    <h1 class="text-xl md:text-2xl my-3">Explore Collections</h1>
+</div>
+<div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto w-3/4 xl:w-3/4 mb-4">
+    {% if collections %}
+    {% for collect in collections %}
+    <div class="bg-slate-600 overflow-hidden md:w-64 w-64 mx-2 bg-opacity-25 rounded-b-lg">
+        <a href="#" target="_blank" rel="noreferrer"><img src="{{ collect.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
+        <a href="#" target="_blank" rel="noreferrer"><h2 class="font-bold bold_underline pl-1">{{ collect.name }}</h2></a>
+        <h2 class="font-medium text-sm pl-1">Pieces in collection: {{ collect.artpiece_set.count }}</h2>    
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No collections to display at this time.</p>
+    {% endif %}
+</div>
+    <!--Add 'Shop for Art' with latest 3 pieces in the shop and their price. Also add links to each header.-->
 {% endblock %}

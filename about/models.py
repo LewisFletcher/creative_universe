@@ -4,7 +4,7 @@ from django.core.validators import MinLengthValidator
 # Create your models here.
 
 class Katelyn(models.Model):
-    full_name = models.CharField()
+    full_name = models.CharField(max_length=100)
     art_style = models.TextField(
         validators=[MinLengthValidator(100, "Must be at least one hundred characters.")]
     )
