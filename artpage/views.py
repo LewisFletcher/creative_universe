@@ -4,4 +4,4 @@ from django.views.generic.base import View, TemplateView
 
 class ArtView(View):
     def get(self, request):
-        return render(request, 'artpage/arthome.html')
+        return render(request, 'arthome.html')

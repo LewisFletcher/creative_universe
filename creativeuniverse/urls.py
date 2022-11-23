@@ -27,7 +27,7 @@ urlpatterns = [
     path('__debug__/', include('debug_toolbar.urls')),
     path('', include('home.urls')),
     path('shop/', include('shop.urls')),
-    path('art/', include('artpage.urls')),
+    path('portfolio/', include('artpage.urls')),
     path('about/', include('about.urls')),
 ]
 

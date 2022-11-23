@@ -4,4 +4,4 @@ from django.views.generic.base import View, TemplateView
 
 class AboutPage(View):
     def get(self, request):
-        return render(request, 'home/about.html')
+        return render(request, 'about.html')

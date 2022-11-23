@@ -4,4 +4,4 @@ from django.views.generic.base import View, TemplateView
 
 class ShopView(View):
     def get(self, request):
-        return render(request, 'shop/shop.html')
+        return render(request, 'shop.html')
