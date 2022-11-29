@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% block content %}
+<div>
+    <a href="{% url '' %}"></a>
+</div>
+{% if art %}
+<div class="flex flex-col items-center mx-auto mt-10 pb-4 px-20 md:px-6">
+    <h1 class="flex-1 w-auto text-3xl mt-2 mb-6 text-gray-200 font-bold">{{art.title}}</h1>
+    <img class="md:max-w-md" src="{{ art.image.url }}" alt="{{ art.title }}">
+    <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2"><span class="italic">"{{art.title}}"</span>  By {{ art.creator }}</p>
+    <h2 class="flex-1 w-auto text-xl text-slate-300 font-semibold my-2">{{art.description}}</h1>
+    <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2">Art Type: {{ art.art_type }}</p>
+    <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2">Canvas Size: {{ art.canvas_size }}</p>
+    {% if art.collection.id != 4 %}
+    <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2">Part of the <a href="{% url 'collection_detail' art.collection.id %}"><span class="underline">{{ art.collection }} collection.</p><span></a>
+    {% else %}
+    {% endif %}
+{% else %}
+<p>Couldn't find this artwork, sorry!</p>
+{% endif %}
+{% endblock %}

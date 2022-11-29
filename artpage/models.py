@@ -1,7 +1,22 @@
 from django.db import models
 
-# Create your models here.
+# Managers
 
+class CollectionManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().exclude(name='No Collection')
+
+class NoCollectionManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(collection='4')
+
+# Models
+
+class Creator(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 class ArtType(models.Model):
     name= models.CharField(max_length=50)
@@ -16,6 +31,8 @@ class Collection(models.Model):
     description= models.CharField(max_length=500)
     image= models.ImageField(blank=True, upload_to='collections/')
     last_updated= models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+    all_collections = CollectionManager()
 
     def __str__(self):
         return self.name
@@ -28,6 +45,9 @@ class ArtPiece(models.Model):
    image= models.ImageField(upload_to='artwork/')
    uploaded= models.DateField(auto_now_add=True)
    collection= models.ForeignKey(Collection, blank=True, on_delete=models.PROTECT, null=True)
+   objects = models.Manager()
+   no_collection = NoCollectionManager()
+   creator= models.ForeignKey(Creator, on_delete=models.PROTECT, blank=True, null=True)
 
    def __str__(self):
         return self.title
