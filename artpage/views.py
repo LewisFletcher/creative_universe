@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import View, TemplateView, ListView, DetailView
 from artpage.models import ArtPiece, Collection, ArtType
 from django.core.paginator import Paginator
+from django.views.generic.list import MultipleObjectMixin
 # Create your views here.
 
 
@@ -54,3 +55,13 @@ class CollectionDetailView(DetailView):
     model = Collection
     template_name = 'collection_detail.html'
     context_object_name = 'collection'
+
+class CategoryView(DetailView, MultipleObjectMixin):
+    paginate_by = 9
+    model = ArtType
+    template_name = 'type_view.html'
+    def get_context_data(self, **kwargs):
+        art_types = ArtType.objects.all()
+        object_list = ArtPiece.objects.filter(art_type = self.get_object())       
+        context = super(CategoryView, self).get_context_data(object_list=object_list,**kwargs, art_type=art_types)   
+        return context

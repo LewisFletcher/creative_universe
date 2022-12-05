@@ -37,11 +37,13 @@
 	<body class="antialiased text-white font-sans leading-normal tracking-normal bg-black w-full bg-repeat-y {% block background_option %}bg-contain{% endblock %}" style="background-image: url('{% static 'universe_lg_b.png' %}')">
 		{% include 'navbar.html' %}
 		<span class="" id="hiddennav">
+			{% block sidebar %}
+			{% endblock %}
 			<div class="w-full sm:w-9/12 lg:w-8/12 px-4 sm:pr-2 lg:pr-4 mx-auto md:mt-auto">
 				{% block content %}
 				{% endblock %}
 			</div>
-
+		<!-- Script for navbar -->
 		<script>
 			function toggle(hidden) {
 				var elem = document.getElementById("mobilenav")
@@ -58,6 +60,33 @@
 					elem2.classList.remove('hidden')
 					elem3.setAttribute('name', 'menu');
 					elem4.setAttribute('style', "")
+				}
+			}
+		</script>
+		<!-- Script for portfolio filter -->
+		<script>
+			function toggle2(hidden) {
+				var elem = document.getElementById("menubg")
+				var elem2 = document.getElementById("categoryselect")
+				var elem3 = document.getElementById("categoryicon")
+				var elem4 = document.getElementById("cathtml")
+				var elem5 = document.getElementById("width")
+				if (elem2.classList.contains("hidden")) {
+					elem.classList.add('bg-slate-600');
+					elem.classList.add('bg-opacity-25');
+					elem2.classList.remove('hidden');
+					elem3.setAttribute('name', 'close');
+					elem4.innerHTML = ("");
+					elem4.classList.remove('pr-2');
+					elem5.classList.remove('w-32');
+				} else {
+					elem.classList.remove('bg-slate-600');
+					elem.classList.remove('bg-opacity-25');
+					elem2.classList.add('hidden');
+					elem3.setAttribute('name', 'add-outline');
+					elem4.innerHTML = ("Filter");
+					elem4.classList.add('pr-2');
+					elem5.classList.add('w-32');
 				}
 			}
 		</script>

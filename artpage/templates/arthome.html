@@ -7,7 +7,7 @@
 <div class="flex flex-row justify-between px-8">
     <span class="basis-1/4"><p>   </p></span>
     <span class="basis-1/4"><h1 class="text-xl md:text-2xl my-3">Recent Art</h1></span>
-    <span class="text-lg md:text-xl text-blue-500 mt-5 mr-8 underline"><a href="{% url 'all_art' %}">View All</a></span>
+    <span class="text-lg md:text-xl text-blue-500  mt-5 mr-8 underline"><a href="{% url 'all_art' %}">View All<ion-icon name="caret-forward-outline" class="align-middle xl"></ion-icon></a></span>
 </div>
 <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto w-3/4 xl:w-3/4 mb-4">
     {% if arts %}
@@ -25,7 +25,7 @@
 <div class="flex flex-row justify-between px-8">
     <span class="basis-1/4"><p>   </p></span>
     <span class="basis-1/4"><h1 class="text-xl md:text-2xl my-3">Explore Collections</h1></span>
-    <span class="text-lg md:text-xl text-blue-500 mt-5 mr-8 underline"><a href="{% url 'all_collections' %}">All Collections</a></span>
+    <span class="text-lg md:text-xl text-blue-500 mt-5 mr-8 underline"><a href="{% url 'all_collections' %}">All Collections<ion-icon name="caret-forward-outline" class="align-middle xl"></ion-icon></a></span>
 </div>
 <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto w-3/4 xl:w-3/4 mb-4">
     {% if collections %}

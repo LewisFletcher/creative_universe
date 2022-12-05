@@ -1,8 +1,5 @@
 {% extends 'index.html' %}
 {% block content %}
-<div>
-    <a href="{% url '' %}"></a>
-</div>
 {% if art %}
 <div class="flex flex-col items-center mx-auto mt-10 pb-4 px-20 md:px-6">
     <h1 class="flex-1 w-auto text-3xl mt-2 mb-6 text-gray-200 font-bold">{{art.title}}</h1>
@@ -12,9 +9,12 @@
     <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2">Art Type: {{ art.art_type }}</p>
     <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2">Canvas Size: {{ art.canvas_size }}</p>
     {% if art.collection.id != 4 %}
-    <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2">Part of the <a href="{% url 'collection_detail' art.collection.id %}"><span class="underline">{{ art.collection }} collection.</p><span></a>
+    <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2"><ion-icon name="finger-print-outline" class="align-middle"></ion-icon> Part of the <a href="{% url 'collection_detail' art.collection.id %}"><span class="underline">{{ art.collection }} collection</p><span></a>
     {% else %}
     {% endif %}
+    <span class="mt-4 text-md text-blue-400 underline underline-offset-3"><a href="{% url 'all_art' %}">View All Art</a></span>
+    
+</div>
 {% else %}
 <p>Couldn't find this artwork, sorry!</p>
 {% endif %}
