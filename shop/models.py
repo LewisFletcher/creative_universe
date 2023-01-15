@@ -59,7 +59,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100, choices=PRODUCT_NAME_CHOICES, default=TIER_1)
     stripe_product_id = models.CharField(max_length=100)
     product_description = models.CharField(max_length=300, null=True)
-    item = models.name = models.ForeignKey(ArtPiece, related_name='product_item', on_delete=models.PROTECT)
+    item = models.name = models.ForeignKey(ArtPiece, related_name='product_item', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

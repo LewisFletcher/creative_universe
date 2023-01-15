@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from django.views.generic.base import View, TemplateView
+from django.views.generic import View
+from .models import Katelyn
 # Create your views here.
 
 class AboutPage(View):
     def get(self, request):
-        return render(request, 'about.html')
+        info = Katelyn.objects.get(id=1)
+        context = {'info' : info }
+        return render(request, 'about.html', context)
