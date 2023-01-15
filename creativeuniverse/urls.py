@@ -22,7 +22,7 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('kateupdate/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
     path('__debug__/', include('debug_toolbar.urls')),
     path('', include('home.urls')),
@@ -33,4 +33,12 @@ urlpatterns = [
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    path('favicon.ico', serve, {
+            'path': 'favicon.ico',
+            'document_root': os.path.join(BASE_DIR, 'staticfiles/favicon_io'),
+        }
+    ),
+]
