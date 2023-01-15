@@ -8,7 +8,7 @@ class CollectionManager(models.Manager):
 
 class NoCollectionManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(collection='4')
+        return super().get_queryset().filter(collection='1')
 
 # Models
 
