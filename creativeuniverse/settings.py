@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #Tailwind requires - change in production
 
 INTERNAL_IPS = [
-    "127.0.0.1",
+    "0.0.0.0",
 ]
 
 NPM_BIN_PATH = r'C:\Program Files\\nodejs\\npm.cmd'
@@ -32,7 +32,7 @@ NPM_BIN_PATH = r'C:\Program Files\\nodejs\\npm.cmd'
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
-ALLOWED_HOSTS = ['creativeuniverse-production.up.railway.app', '*']
+ALLOWED_HOSTS = ['creativeuniverse-production.up.railway.app', 'https://creativeuniverse-production.up.railway.app', 'http://creativeuniverse-production.up.railway.app']
 
 CSRF_TRUSTED_ORIGINS = ['https://creativeuniverse-production.up.railway.app']
 
@@ -43,7 +43,7 @@ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = 'creativeuniverse-media'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ADMINS = [('lewis', 'lew.fletcher3@gmail.com')]
 
