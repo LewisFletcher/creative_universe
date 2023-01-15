@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "cross-env": "^7.0.3",
-    "node": "^19.1.0"
-  }
-}
