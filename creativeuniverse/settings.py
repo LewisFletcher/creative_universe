@@ -32,9 +32,9 @@ NPM_BIN_PATH = r'C:\Program Files\\nodejs\\npm.cmd'
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
-ALLOWED_HOSTS = ['web-production-aac2.up.railway.app', '*']
+ALLOWED_HOSTS = ['creativeuniverse-production.up.railway.app', '*']
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-aac2.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://creativeuniverse-production.up.railway.app']
 
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 
@@ -61,8 +61,8 @@ INSTALLED_APPS = [
     #Dependencies
     'tailwind',
     'theme',
-    'django_browser_reload',
-    "debug_toolbar",
+    #'django_browser_reload',
+    #"debug_toolbar",
     "storages",
 
     #Apps
