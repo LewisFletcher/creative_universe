@@ -11,24 +11,24 @@ bg-cover
 <div class="flex flex-col px-2 py-6">
     <h1 class="text-lg font-semibold pb-2 ">About the Artist</h1>
     <span class="flex flex-row">
-        <img class="w-36 pr-4 pb-4" src="{{ info.selfie.url }}" alt="">
-        <p>{{info.full_name}} created Creative Universe Art in 2018. Through this name, she has {{info.creative_universe_exp}}</p>
+        <img class="max-w-[12rem] h-auto pr-4 pb-4" src="{{ info.selfie.url }}" alt="">
+        <h1 class="font-semibold text-lg mb-2">{{info.full_name}}</h1>
+        <p>{{info.creative_universe_exp}}</p>
     </span>
-    <p>{{info.biography_1}}</p>
-    <p>{{info.biography_2}}</p>
-    <p>{{info.biography_3}}</p>
-    <p>{{info.biography_4}}</p>
-    <p>Fun Fact! Katelyn has lived in thwe following places: {{info.places_lived}}</p>
+    <p class="my-1">{{info.biography_1}}</p>
+    <p class="my-1">{{info.biography_2}}</p>
+    <p class="my-1">{{info.biography_3}}</p>
+    <p class="my-1">{{info.biography_4}}</p>
+    <p class="my-2 ">Places lived: {{info.places_lived}}</p>
 </div>
 <div class="flex flex-col px-2 py-6">
     <h1 class="text-lg font-semibold pb-2 ">About Creative Universe Art</h1>
     <span class="flex flex-row">
-        <img class="w-36 pr-4 pb-4" src="{{ info.favorite_art_piece.image.url }}" alt="">
-        <p>Creative Universe Art contains a gallery of past and present artworks created by Katelyn Stephens. Some works in the gallery are for sale in the 
-            'shop' section of this site. This piece is Katelyn's current favorite as it {{info.favorite_art_reason}}
+        <img class="max-w-[12rem] h-auto pr-4 pb-4" src="{{ info.favorite_art_piece.image.url }}" alt="">
+        <p class="my-1">Creative Universe Art contains a gallery of past and present artworks created by me. {{info.favorite_art_reason}}
         </p>
     </span>
-    <p>Katelyn currently uses the following art stationary/techniques, but is always learning and trying new things: {{info.art_style}}</p>
+    <p>I currently use the following art stationary/techniques, and would descirbe my art style as such: {{info.art_style}}</p>
 </div>
 {% else %}
 {% endif %}

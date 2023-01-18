@@ -34,7 +34,7 @@
 		{% tailwind_css %}
 	</head>
 
-	<body class="antialiased text-white font-sans leading-normal tracking-normal bg-black w-full bg-repeat-y {% block background_option %}bg-contain{% endblock %}" style="background-image: url('{% static 'universe_lg_b.png' %}')">
+	<body class="antialiased text-white font-sans leading-normal tracking-normal bg-black w-full bg-repeat-y {% block background_option %}bg-contain{% endblock %} md:bg-contain xl:bg-cover" style="background-image: url('{% static 'universe_lg_b.png' %}')">
 		{% include 'navbar.html' %}
 		<span class="" id="hiddennav">
 			{% block sidebar %}

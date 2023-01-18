@@ -37,8 +37,8 @@
     {% if collections %}
     {% for collect in collections %}
     <div class="bg-slate-600 overflow-hidden md:w-64 w-64 mx-2 bg-opacity-25 rounded-b-lg">
-        <a href="#" target="_blank" rel="noreferrer"><img src="{{ collect.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
-        <a href="#" target="_blank" rel="noreferrer"><h2 class="font-bold bold_underline pl-1">{{ collect.name }}</h2></a>
+        <a href="{% url 'collection_detail' collect.id %}" target="_blank" rel="noreferrer"><img src="{{ collect.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
+        <a href="{% url 'collection_detail' collect.id %}" target="_blank" rel="noreferrer"><h2 class="font-bold bold_underline pl-1">{{ collect.name }}</h2></a>
         <h2 class="font-medium text-sm pl-1">Pieces in collection: {{ collect.artpiece_set.count }}</h2>    
     </div>
     {% endfor %}

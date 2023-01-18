@@ -9,7 +9,7 @@ from django.views.generic.list import MultipleObjectMixin
 class ArtView(View):
     def get(self, request):
         art_type = ArtType.objects.all()
-        art = ArtPiece.no_collection.order_by('-uploaded')[:9]
+        art = ArtPiece.objects.all().order_by('-uploaded')[:9]
         collections = Collection.all_collections.order_by('-last_updated')[:9]
         context = {'arts' : art, 'collections' : collections, 'type' : art_type}
         return render(request, 'arthome.html', context)
