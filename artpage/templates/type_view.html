@@ -1,9 +1,12 @@
 {% extends 'index.html' %}
 {% if object_list.count < 3 %}
     {% block background_option %}
-    bg-cover
+    bg-contain
     {% endblock %}
 {% else %}
+{% block background_option %}
+bg-cover
+{% endblock %}
 {% endif %}
 {% block content %}
 <div class="flex flex-row justify-between px-8">
