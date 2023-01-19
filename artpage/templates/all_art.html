@@ -13,7 +13,7 @@ bg-contain
     {% if arts %}
     {% for art in arts %}
     <div class="bg-slate-600 overflow-hidden w-64 mx-2 bg-opacity-25 rounded-b-lg">
-        <span class="h-64 overflow-hidden"><a href="{% url 'art_detail' art.id %}" ><img src="{{ art.image.url }}" class="w-64 max-h-64 object-cover object-center overflow-hidden"alt=""></a></span>
+        <span class="h-64 overflow-hidden"><a href="{% url 'art_detail' art.id %}" ><img src="{{ art.image.url }}" class="w-64 max-h-[16rem] object-cover object-center overflow-hidden"alt=""></a></span>
         <a href="{% url 'art_detail' art.id %}" ><h2 class="font-bold bold_underline pl-1">{{ art.title }}</h2></a>
         <h2 class="font-medium text-sm pl-1">{{ art.description }}</h2>    
     </div>
