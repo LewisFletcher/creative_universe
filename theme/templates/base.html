@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-	<title>{% block sitetitle %}Creative Universe Art{% endblock %}</title>
+	<title>{% block sitetitle %}Creative Universe Art Productions{% endblock %}</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -22,6 +22,8 @@
 		<meta name="twitter:url" content="">
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:image" content="">
+		<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Montserrat">
 		<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 		<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
 		<script src="https://unpkg.com/htmx.org@1.8.2"></script>
@@ -34,7 +36,7 @@
 		{% tailwind_css %}
 	</head>
 
-	<body class="antialiased text-white font-sans leading-normal tracking-normal bg-black w-full bg-repeat-y bg-contain lg:bg-cover" style="background-image: url('{% static 'universe_lg_b.png' %}')">
+	<body class="antialiased text-white font-montserrat leading-normal tracking-normal bg-black w-full bg-repeat-y {% block background_option %} bg-contain xl:bg-cover xxl:bg-cover{% endblock background_option %}" style="background-image: url('{% static 'universe_lg_b.png' %}')">
 		{% include 'navbar.html' %}
 		<span class="" id="hiddennav">
 			{% block sidebar %}
@@ -91,11 +93,11 @@
 			}
 		</script>
 		  <footer>
-			<hr class="mt-8 border-black">
-			<div class="flex flex-wrap items-center md:justify-between justify-center bg-black-800 bg-opacity-25">
+			<hr class="mt-8 border-black pt-[5.5rem]">
+			<div class="flex flex-wrap items-center md:justify-between justify-center {% block fixedfooter %} fixed inset-x-0 bottom-0{% endblock %} bg-gray-800 bg-opacity-25">
 				<div class="w-full md:w-4/12 px-4 mx-auto text-center">
 				  <div class="text-sm text-slate-500 font-semibold py-10">
-					© Creative Universe Art
+					© Creative Universe Art Productions
 				  </div>
 				</div>
 			  </div>

@@ -1,10 +1,8 @@
 {% extends 'index.html' %}
-{% if arts.count < 3 %}
-    {% block background_option %}
-    bg-cover
-    {% endblock %}
-{% else %}
-{% endif %}
+{% block background_option %}
+bg-contain 
+{% endblock background_option %}
+
 {% block content %}
 <div class="flex flex-row justify-between px-8">
     <span class="basis-1/4 pt-5"><p>{% include 'category_select.html' %}</span>

@@ -12,8 +12,10 @@ bg-cover
     <h1 class="text-lg font-semibold pb-2 ">About the Artist</h1>
     <span class="flex flex-row">
         <img class="max-w-[12rem] h-auto pr-4 pb-4" src="{{ info.selfie.url }}" alt="">
-        <h1 class="font-semibold text-lg mb-2">{{info.full_name}}</h1>
-        <p>{{info.creative_universe_exp}}</p>
+        <span class="flex flex-col">
+            <h1 class="font-semibold text-lg mb-2">{{info.full_name}}</h1>
+            <p>{{info.creative_universe_exp}}</p>
+        </span>
     </span>
     <p class="my-1">{{info.biography_1}}</p>
     <p class="my-1">{{info.biography_2}}</p>

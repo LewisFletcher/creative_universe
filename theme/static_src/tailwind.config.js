@@ -52,6 +52,7 @@ module.exports = {
           md: '768px',
           lg: '1024px',
           xl: '1280px',
+          xxl: '2660px'
       },
       colors: ({ colors }) => ({
           inherit: colors.inherit,
@@ -389,6 +390,9 @@ module.exports = {
         DEFAULT: '1',
       },
       fontFamily: {
+        montserrat: [
+          'Montserrat'
+        ],
         sans: [
           'calbiri',
           'ui-sans-serif',
