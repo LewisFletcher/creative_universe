@@ -1,5 +1,11 @@
 {% extends 'index.html' %}
+{% block background_option %}
+{% if object_list.objects.count < 3 %}
+bc-cover
+{% else %}
+bg-contain 
 {% endif %}
+{% endblock background_option %}
 {% block content %}
 <div class="flex flex-row justify-between px-8">
     <span class="basis-1/4 pt-5"><p>{% include 'category_select.html' %}</span>
