@@ -21,8 +21,8 @@
     {% if recent_art %}
     {% for art in recent_art %}
     <div class="bg-slate-600 overflow-hidden md:w-64 w-64 mx-2 bg-opacity-25 rounded-b-lg">
-        <a href="#" target="_blank" rel="noreferrer"><img src="{{ art.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
-        <a href="#" target="_blank" rel="noreferrer"><h2 class="font-bold bold_underline pl-1">{{ art.title }}</h2></a>
+        <a href="{% url 'art_detail' art.id %}" target="_blank" rel="noreferrer"><img src="{{ art.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
+        <a href="{% url 'art_detail' art.id %}" target="_blank" rel="noreferrer"><h2 class="font-bold bold_underline pl-1">{{ art.title }}</h2></a>
         <h2 class="font-medium text-sm pl-1">{{ art.description }}</h2>    
     </div>
     {% endfor %}
