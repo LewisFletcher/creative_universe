@@ -8,4 +8,5 @@ urlpatterns = [
     path('collections/', views.AllCollectionView.as_view(), name='all_collections'),
     path('collections/details/<int:pk>', views.CollectionDetailView.as_view(), name='collection_detail'),
     path('type/<int:pk>',views.CategoryView.as_view(), name='category'),
+    path('art/<int:pk>', views.get_art, name='get_art')
 ]
