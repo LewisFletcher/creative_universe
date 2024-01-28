@@ -23,17 +23,20 @@ from django.conf import settings
 
 urlpatterns = [
     path('kateupdate/', admin.site.urls),
-    path("__reload__/", include("django_browser_reload.urls")),
-    path('__debug__/', include('debug_toolbar.urls')),
     path('', include('home.urls')),
     path('shop/', include('shop.urls')),
     path('portfolio/', include('artpage.urls')),
     path('about/', include('about.urls')),
+    path('markdownx/', include('markdownx.urls')),
 ]
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-#urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += [path('__debug__/', include('debug_toolbar.urls')),
+                    path("__reload__/", include("django_browser_reload.urls")),
+                    ]
+                    
 
 urlpatterns += [
     path('favicon.ico', serve, {

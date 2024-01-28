@@ -16,3 +16,4 @@ cmd.txt
 /.vscode
 *.bak
 media
+dev_settings.py

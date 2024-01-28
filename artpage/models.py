@@ -48,6 +48,7 @@ class ArtPiece(models.Model):
    objects = models.Manager()
    no_collection = NoCollectionManager()
    creator= models.ForeignKey(Creator, on_delete=models.PROTECT, blank=True, null=True)
+   landscape = models.BooleanField(default=False)
 
    def __str__(self):
         return self.title

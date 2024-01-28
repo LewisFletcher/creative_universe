@@ -1,0 +1,16 @@
+{% if arts %}
+{% for art in arts %}
+    {% if art.image %}
+        <div class="overflow-hidden {% if not art.landscape %}row-span-2{% else %}row-span-1{% endif %}"{% if forloop.last %} hx-get="{{ url }}?page={{ page_obj.number|add:1 }}" hx-trigger="revealed" hx-swap="afterend" hx-target="this"{% endif %}>
+            <a href="{{ art.image.url }}" class="image-link"><img src="{{ art.image.url }}" class="w-full object-cover" alt="" data-mfp-src="{{ art.image.url }}"></a>
+            {% if forloop.last %}
+                <div ></div>
+            {% endif %}
+        </div>
+    {% else %}
+    {{ art.name }} is empty
+    {% endif %}
+{% endfor %}
+{% else %}
+<p>No art to display at this time.</p>
+{% endif %}

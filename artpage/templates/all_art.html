@@ -5,22 +5,43 @@ bg-contain
 
 {% block content %}
 <div class="flex flex-row justify-between px-8">
-    <span class="basis-1/4 pt-5"><p>{% include 'category_select.html' %}</span>
     <span class="basis-1/4"><h1 class="text-xl md:text-2xl my-3">All Art</h1></span>
-    <span class=""></span>
 </div>
-<div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto w-3/4 xl:w-3/4 mb-4">
-    {% if arts %}
-    {% for art in arts %}
-    <div class="bg-slate-600 overflow-hidden md:w-64 w-64 mx-2 bg-opacity-25 rounded-b-lg">
-        <a href="{% url 'art_detail' art.id %}" ><img src="{{ art.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
-        <a href="{% url 'art_detail' art.id %}" ><h2 class="font-bold bold_underline pl-1">{{ art.title }}</h2></a>
-        <h2 class="font-medium text-sm pl-1">{{ art.description }}</h2>    
-    </div>
-    {% endfor %}
-    {% else %}
-    <p>No art to display at this time.</p>
-    {% endif %}
+<div class="grid lg:grid-cols-2 xl:grid-cols-3 mx-auto w-3/4 mb-4 gap-x-1 gap-y-1 grid-flow-row-dense">
+    {% include 'art_loop.html' %}
 </div>
-{% include "paginator.html" %}
+{% endblock %}
+{% block fixed_footer %}
+{% endblock %}
+{% block scripts %}
+<script>
+    function initializeMagnificPopup() {
+      $('.image-link').magnificPopup({
+          type: 'image',
+          gallery: { enabled: true },
+          mainClass: 'mfp-with-zoom',
+          zoom: { enabled: true, duration: 300, easing: 'ease-in-out' }
+      });
+  
+      $('.image-link').click(function(e) {
+          e.preventDefault();
+          var url = $(this).data('mfp-src');
+          $.get($(this).attr('href'), function(data) {
+              $.magnificPopup.open({
+                  items: { src: data.image_url },
+                  type: 'image'
+              });
+          }, 'json');
+      });
+  }
+  
+  $(document).ready(function() {
+      initializeMagnificPopup();
+  });
+  
+  // Billy's fix: Reinitialize the fuckin' MagnificPopup after HTMX swaps in new content
+  document.body.addEventListener('htmx:afterSwap', function() {
+      initializeMagnificPopup();
+  });
+  </script>
 {% endblock %}

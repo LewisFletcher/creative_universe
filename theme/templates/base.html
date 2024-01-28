@@ -27,9 +27,13 @@
 		<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 		<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
 		<script src="https://unpkg.com/htmx.org@1.8.2"></script>
+		<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
 		<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
 		<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	  	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 		{% block head %}
 		
 		{% endblock %}
@@ -41,30 +45,10 @@
 		<span class="" id="hiddennav">
 			{% block sidebar %}
 			{% endblock %}
-			<div class="w-full sm:w-9/12 lg:w-8/12 px-4 sm:pr-2 lg:pr-4 mx-auto md:mt-auto">
+			<div class="" id="content-start">
 				{% block content %}
 				{% endblock %}
 			</div>
-		<!-- Script for navbar -->
-		<script>
-			function toggle(hidden) {
-				var elem = document.getElementById("mobilenav")
-				var elem2 = document.getElementById("hiddennav")
-				var elem3 = document.getElementById("menubutton")
-				var elem4 = document.getElementById("background")
-				if (elem.classList.contains("hidden")) {
-					elem.classList.remove('hidden');
-					elem2.classList.add('hidden');
-					elem3.setAttribute('name', 'close');
-					elem4.setAttribute('style', "background-image: url('{% static 'universe_mob2.png' %}')")
-				} else {
-					elem.classList.add('hidden');
-					elem2.classList.remove('hidden')
-					elem3.setAttribute('name', 'menu');
-					elem4.setAttribute('style', "")
-				}
-			}
-		</script>
 		<!-- Script for portfolio filter -->
 		<script>
 			function toggle2(hidden) {
@@ -93,10 +77,10 @@
 			}
 		</script>
 		  <footer>
-			<hr class="mt-8 border-black pt-[5.5rem]">
-			<div class="flex flex-wrap items-center md:justify-between justify-center {% block fixedfooter %} fixed inset-x-0 bottom-0{% endblock %} bg-gray-800 bg-opacity-25">
+			<hr class="border-none mt-16">
+			<div class="flex flex-wrap items-center w-full md:justify-between justify-center bg-gray-800 bg-opacity-25 {% block fixed_footer %} md:fixed md:inset-x-0 md:bottom-0{% endblock %}">
 				<div class="w-full md:w-4/12 px-4 mx-auto text-center">
-				  <div class="text-sm text-slate-500 font-semibold py-10">
+				  <div class="text-sm text-slate-500 font-semibold py-6">
 					© Creative Universe Art Productions
 				  </div>
 				</div>
@@ -104,5 +88,7 @@
 			</div>
 		  </footer>
 		</span>  
+		{% block scripts %}
+		{% endblock %}
 	</body>
 </html>

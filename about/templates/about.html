@@ -1,33 +1,21 @@
 {% extends 'index.html' %}
 {% load static %}
+{% block head %}
+<style>
+    img.markdownimg {
+        max-width: 25%;
+    }
+</style>
+{% endblock %}
 {% block content %}
 <div class="flex flex-row justify-center px-8">
-    <h1 class="text-2xl md:text-3xl my-3">About</h1>
+    <h1 class="text-2xl md:text-3xl my-3">About Creative Universe</h1>
 </div>
 {% if info %}
-<div class="flex flex-col px-2 py-6">
-    <h1 class="text-lg font-semibold pb-2 ">About the Artist</h1>
-    <span class="flex flex-row">
-        <img class="max-w-[12rem] h-auto pr-4 pb-4" src="{{ info.selfie.url }}" alt="">
-        <span class="flex flex-col">
-            <h1 class="font-semibold text-lg mb-2">{{info.full_name}}</h1>
-            <p>{{info.creative_universe_exp}}</p>
-        </span>
+<div class="flex flex-col px-2 py-6 w-full sm:w-9/12 lg:w-8/12 sm:pr-2 lg:pr-4 mx-auto md:mt-auto">
+    <span class="">
+        {{info|safe}}
     </span>
-    <p class="my-1">{{info.biography_1}}</p>
-    <p class="my-1">{{info.biography_2}}</p>
-    <p class="my-1">{{info.biography_3}}</p>
-    <p class="my-1">{{info.biography_4}}</p>
-    <p class="my-2 ">Places lived: {{info.places_lived}}</p>
-</div>
-<div class="flex flex-col px-2 py-6">
-    <h1 class="text-lg font-semibold pb-2 ">About Creative Universe Art</h1>
-    <span class="flex flex-row">
-        <img class="max-w-[12rem] h-auto pr-4 pb-4" src="{{ info.favorite_art_piece.image.url }}" alt="">
-        <p class="my-1">Creative Universe Art contains a gallery of past and present artworks created by me. {{info.favorite_art_reason}}
-        </p>
-    </span>
-    <p>I currently use the following art stationary/techniques, and would descirbe my art style as such: {{info.art_style}}</p>
 </div>
 {% else %}
 {% endif %}

@@ -44,7 +44,7 @@ module.exports = {
        * Python: If you use Tailwind CSS classes in Python, uncomment the following line
        * and make sure the pattern below matches your project structure.
        */
-      // '../../**/*.py'
+      'BASE_DIR\\creativeuniverse\\about\\views.py',
   ],
   theme: {
       screens: {
@@ -683,6 +683,7 @@ module.exports = {
         '6xl': '72rem',
         '7xl': '80rem',
         full: '100%',
+        markdownimg: '25%',
         min: 'min-content',
         max: 'max-content',
         fit: 'fit-content',
