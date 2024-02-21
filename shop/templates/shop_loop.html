@@ -1,0 +1,39 @@
+{% load shop_filters %}
+
+
+
+    {% for item in items %}
+    <div id="shop-start" class="bg-kate-200 overflow-hidden md:w-64 w-64 mx-2 rounded-lg" {% if forloop.last and page_obj.has_next %} hx-get="{{ url }}?page={{ page_obj.number|add:1 }}" hx-trigger="revealed" hx-swap="afterend" hx-target="#shop-start" {% endif %}>
+        <a href="{% url 'art_detail' item.id %}" ><img src="{{ item.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
+        <div class="flex flex-row justify-between">
+            <div class="self-stretch">
+                <a href="{% url 'art_detail' item.id %}" ><h2 class="font-bold bold_underline px-1 pt-1 hover:text-kate-300">{{ item.title }}</h2></a>
+                <h2 class="font-medium text-sm px-1 w-full">{{ item.description }}</h2>
+            </div>
+            <div class="flex flex-col justify-end">
+                <div class="self-end">
+                    <h2 class="font-bold text-lg px-1 pt-1">${{ item.product.get_price }}</h2>
+                </div>
+                {% if item|in_cart:request.session.cart %}
+                <div class="self-end">
+                    <button type="button" class="bg-kate-300 text-white px-1 py-1 rounded-lg text-sm mt-2 mb-1 mr-1 whitespace-nowrap">
+                        <span>In Cart</span>
+                    </button>
+                </div>
+                {% else %}
+                <div x-data="{ inCart: false }">
+                    <button type="button" class="bg-kate-300 text-white px-1 py-1 rounded-lg text-sm mt-2 mb-1 mr-1 whitespace-nowrap"
+                            hx-post="{% url 'add_to_cart' item.get_model_name item.id %}" 
+                            hx-target="#cart-count"
+                            @click.prevent="inCart = true">
+                        <span x-show="!inCart">Add to Cart</span>
+                        <span x-show="inCart">In Cart</span>
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+    </div>
+    {% endfor %}
+

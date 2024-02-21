@@ -30,6 +30,12 @@ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 
 AWS_STORAGE_BUCKET_NAME = 'creativeuniverse-media'
 
+STRIPE_WEBHOOK_SECRET = os.environ['STRIPE_WEBHOOK_SECRET']
+
+STRIPE_PUBLISHABLE_KEY = 'pk_live_51OeLuqG86heXUEazstgiRNL17oocJ6UoD2rJX4jm4lZ6ujuqm33b7cLKT5QiYxhupqghVvF0w13342796SEiMAkC00y0yUFZiR'
+
+STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -39,6 +45,7 @@ TAILWIND_APP_NAME = 'theme' #tailwind src
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,13 +61,20 @@ INSTALLED_APPS = [
     "storages",
     "django_htmx",
     'markdownx',
+    "crispy_forms",
+    "crispy_tailwind",
 
     #Apps
     'home.apps.HomeConfig',
     'about.apps.AboutConfig',
     'shop.apps.ShopConfig',
     'artpage.apps.ArtpageConfig',
+    'contact.apps.ContactConfig',
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

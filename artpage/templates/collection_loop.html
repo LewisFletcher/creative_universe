@@ -1,0 +1,11 @@
+{% if collections %}
+{% for collect in collections %}
+<div class="bg-kate-200 overflow-hidden md:w-64 w-64 mx-2 rounded-lg"{% if forloop.last %} hx-get="{{ url }}?page={{ page_obj.number|add:1 }}" hx-trigger="revealed" hx-swap="afterend" hx-target="this"{% endif %}>
+    <a href="{% url 'collection_detail' collect.id %}" ><img src="{{ collect.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
+    <a href="{% url 'collection_detail' collect.id %}" ><h2 class="font-bold bold_underline pl-1 hover:text-kate-300">{{ collect.name }}</h2></a>
+    <h2 class="font-medium text-sm pl-1">Pieces in collection: {{ collect.artpiece_set.count }}</h2>     
+</div>
+{% endfor %}
+{% else %}
+<p>No collections to display at this time.</p>
+{% endif %}

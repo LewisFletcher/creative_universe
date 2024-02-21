@@ -1,0 +1,12 @@
+{% load shop_filters %}
+{% if request.session.cart %}
+    <a href="{% url 'view_cart' %}" class="
+        text-kate-300
+        hover:text-kate-100
+        pl-3
+        py-2
+        pr-5
+        rounded-md
+        text-2xl                
+    "><span class="mr-2">{{ request.session.cart|cart_count }}</span><i class="fas fa-shopping-cart"></i></a>
+{% endif %}

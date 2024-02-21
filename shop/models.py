@@ -44,22 +44,12 @@ class Customer(models.Model):
         return self.last_name
 
 class Product(models.Model):
-    TIER_1 = '1'
-    TIER_2 = '2'
-    TIER_3 = '3'
-    TIER_4 = '4'
-    TIER_5 = '5'
-    PRODUCT_NAME_CHOICES = [
-        (TIER_1, '1'),
-        (TIER_2, '2'),
-        (TIER_3, '3'),
-        (TIER_4, '4'),
-        (TIER_5, '5'),
-    ]
-    name = models.CharField(max_length=100, choices=PRODUCT_NAME_CHOICES, default=TIER_1)
+    name = models.CharField(max_length=200, blank=True, null=True)
     stripe_product_id = models.CharField(max_length=100)
     product_description = models.CharField(max_length=300, null=True)
-    item = models.name = models.ForeignKey(ArtPiece, related_name='product_item', on_delete=models.CASCADE)
+
+    def get_price(self):
+        return self.prices.first().price
 
     def __str__(self):
         return self.name
@@ -67,7 +57,7 @@ class Product(models.Model):
 class Price(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="prices")
     stripe_price_id = models.CharField(max_length=100)
-    price = models.IntegerField(default=0)  # dollars
+    price = models.IntegerField(default=0)
     price_description = models.CharField(max_length=300, null=True)
 
     class Meta:
@@ -78,14 +68,47 @@ class Price(models.Model):
 
     def __str__(self):
         return '%s %s %s %s' % ("$", self.price, "-", self.price_description)
+    
+class OrderProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.ForeignKey(Price, on_delete=models.CASCADE)
+    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    item_key = models.CharField(max_length=100, null=True)
+
+    def get_total_price(self):
+        return self.quantity * self.product.get_price()
+
+    def __str__(self):
+        return self.product.name
 
 class Order(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Package Type: ')
-    price = models.ForeignKey(Price, on_delete=models.CASCADE, verbose_name="Number of stems: ")
-    shipping_address = models.FileField(upload_to='studio_orders/', verbose_name="Upload zipped music file: ")
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='cust_details')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='cust_details', null=True, blank=True)
     order_date = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default= False)
-    customer_paid = models.FloatField(default= 0)
     stripe_order_id = models.CharField(max_length=100, null=True)
     fullfilment_date = models.DateTimeField(null=True)
+    order_id = models.CharField(max_length=100, null=True)
+    total = models.FloatField(default= 0)
+
+    def generate_order_id():
+        import datetime
+        last_order = Order.objects.all().order_by('id').last()
+
+        if not last_order or 'ORD-' not in last_order.order_id:
+            return f'ORD-1'
+
+        # Extract the numeric part of the order_id
+        parts = last_order.order_id.split('-')
+        if len(parts) > 1 and parts[1].isdigit():
+            order_number = int(parts[1]) + 1
+        else:
+            order_number = 1
+
+        new_order_id = f'ORD-{order_number}'
+        return new_order_id
+
+    def save(self, *args, **kwargs):
+        if not self.order_id:
+            self.order_id = self.generate_order_id()
+        return super().save(*args, **kwargs)

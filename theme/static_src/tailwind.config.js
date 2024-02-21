@@ -44,7 +44,7 @@ module.exports = {
        * Python: If you use Tailwind CSS classes in Python, uncomment the following line
        * and make sure the pattern below matches your project structure.
        */
-      // '../../**/*.py'
+      'BASE_DIR\\about\\views.py',
   ],
   theme: {
       screens: {
@@ -82,6 +82,11 @@ module.exports = {
           fuchsia: colors.fuchsia,
           pink: colors.pink,
           rose: colors.rose,
+          kate: {
+              100 : '#7A3DB3',
+              200 : '#370F5D',
+              300 : '#54a0d5'
+          }
       }),
       columns: {
           auto: 'auto',

@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+{% load tailwind_filters %}
+{% block background_option %}
+bg-contain
+{% endblock background_option %}
+{% block content %}
+<div class="flex items-center justify-center h-screen">
+    <div class="w-full sm:w-9/12 lg:w-8/12 px-4">
+        <div class="flex flex-col justify-center">
+            <div class="flex flex-row justify-between space-x-5 mx-auto">
+                <div class="basis-1/2">
+                    <h1 class="text-4xl md:text-3xl my-3">Contact Katelyn</h1>
+                    <p class="text-kate-300 text-xl mb-2">Whether you are looking for a commission, have a question, or just want to say hi, I would love to hear from you! Please fill out the form below and I will get back to you as soon as possible.</p>
+                </div>
+                <div class="flex flex-col justify-center w-1/2">
+                    {% if not success %}
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="bg-kate-300 text-white px-4 py-2 rounded-md mt-4">Submit</button>
+                    </form>
+                    {% else %}
+                    <div class="text-center">
+                        <h1 class="text-3xl text-kate-300">Thank you for reaching out!</h1>
+                        <p class="text-xl text-kate-300">I will get back to you as soon as possible.</p>
+                    </div>
+                    {% endif %}
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

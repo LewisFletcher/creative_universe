@@ -22,11 +22,13 @@ from django.conf import settings
 
 
 urlpatterns = [
+    path('grappelli/', include('grappelli.urls')),
     path('kateupdate/', admin.site.urls),
     path('', include('home.urls')),
     path('shop/', include('shop.urls')),
     path('portfolio/', include('artpage.urls')),
     path('about/', include('about.urls')),
+    path('contact/', include('contact.urls')),
     path('markdownx/', include('markdownx.urls')),
 ]
 

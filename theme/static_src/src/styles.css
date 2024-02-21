@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.hyperlink {
+    @apply text-blue-500 underline active:text-indigo-500 visited:text-kate-300 hover:text-blue-900
+}

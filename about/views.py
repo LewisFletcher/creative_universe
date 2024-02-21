@@ -10,10 +10,10 @@ class AboutPage(View):
         info = Katelyn.objects.get(id=1)
         html_content = markdownify(info.info)
         soup = BeautifulSoup(html_content, 'html.parser')
-        heading_class_large = "text-2xl font-bold my-4"
+        heading_class_large = "text-3xl font-bold my-2"
         for h in soup.find_all(['h1']):
             h['class'] = h.get('class', []) + heading_class_large.split()
-        heading_class_medium = "text-xl font-semibold my-4"
+        heading_class_medium = "text-3xl font-semibold my-4"
         for h in soup.find_all(['h2']):
             h['class'] = h.get('class', []) + heading_class_medium.split()
         heading_class_small = "text-lg my-4"
@@ -28,7 +28,7 @@ class AboutPage(View):
         list_class = "list-decimal list-inside my-4"
         for l in soup.find_all(['ol']):
             l['class'] = l.get('class', []) + list_class.split()
-        paragraph_class = "my-4"
+        paragraph_class = "my-2 text-xl"
         for p in soup.find_all(['p']):
             p['class'] = p.get('class', []) + paragraph_class.split()
         image_class = "my-4"

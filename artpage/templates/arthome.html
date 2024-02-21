@@ -4,71 +4,38 @@
 bg-contain 
 {% endblock background_option %}
 {% block content %}
-<div class="flex flex-row justify-center px-8">
-    <h1 class="text-2xl md:text-3xl my-3">Portfolio</h1>
-</div>
-<div class="flex flex-row justify-center">
-    <a class="text-blue-500 underline visited:text-purple-500 underline-offset-4" href="{% url 'all_art' %}"><h1 class="text-xl md:text-2xl my-3">Recent Art</h1></a>
-</div>
-<div class="flex flex-col items-center mx-auto pb-4 ">
-    <div class="grid lg:grid-cols-2 xl:grid-cols-3 mx-auto w-3/4 mb-4 gap-x-1 gap-y-1 grid-flow-row-dense">
+<div class="w-full sm:w-9/12 lg:w-8/12 px-4 mx-auto mt-auto">
+    <div class="flex flex-row justify-center mx-auto">
+        <h1 class="text-2xl md:text-3xl my-3 "><a href="{% url 'all_art' %}">Recent Art</a></h1>
+    </div>
+    <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto mb-4 justify-items-center">
         {% if arts %}
         {% for art in arts %}
-                <div class="overflow-hidden {% if not art.landscape %}row-span-2{% else %}row-span-1{% endif %}">
-                    <a href="{{ art.image.url }}" class="image-link"><img src="{{ art.image.url }}" class="w-full object-cover" alt="" data-mfp-src="{{ art.image.url }}"></a>
-                </div>
+        <div class="bg-kate-200 overflow-hidden md:w-64 w-64 mx-2 rounded-lg">
+            <a href="{% url 'art_detail' art.id %}" ><img src="{{ art.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
+            <a href="{% url 'art_detail' art.id %}" ><h2 class="font-bold bold_underline px-1 pt-1 hover:text-kate-300">{{ art.title }}</h2></a>
+            <h2 class="font-medium text-sm px-1 pb-1">{{ art.description }}</h2>    
+        </div>
         {% endfor %}
         {% else %}
         <p>No art to display at this time.</p>
         {% endif %}
     </div>
-</div>
-<div class="flex flex-row justify-center">
-    <a class="text-blue-500 underline visited:text-purple-500 underline-offset-4" href="{% url 'all_collections' %}"><h1 class="text-xl md:text-2xl my-3">Explore Collections</h1></a>
-</div>
-<div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto w-3/4 xl:w-3/4 mb-4">
-    {% if collections %}
-    {% for collect in collections %}
-    <div class="bg-slate-600 overflow-hidden md:w-64 w-64 mx-2 bg-opacity-25 rounded-b-lg">
-        <a href="{% url 'collection_detail' collect.id %}" ><img src="{{ collect.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
-        <a href="{% url 'collection_detail' collect.id %}" ><h2 class="font-bold bold_underline pl-1">{{ collect.name }}</h2></a>
-        <h2 class="font-medium text-sm pl-1">Pieces in collection: {{ collect.artpiece_set.count }}</h2>    
+    <div class="flex flex-row justify-center px-8">
+        <h1 class="text-2xl md:text-3xl my-3"><a href="{% url 'all_collections' %}">Explore Collections</a></h1></span>
     </div>
-    {% endfor %}
-    {% else %}
-    <p>No collections to display at this time.</p>
-    {% endif %}
+    <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto mb-4 justify-items-center">
+        {% if collections %}
+        {% for collect in collections %}
+        <div class="bg-kate-200 overflow-hidden md:w-64 w-64 mx-2 rounded-lg">
+            <a href="{% url 'collection_detail' collect.id %}" ><img src="{{ collect.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
+            <a href="{% url 'collection_detail' collect.id %}" ><h2 class="font-bold bold_underline px-1 pt-1">{{ collect.name }}</h2></a>
+            <h2 class="font-medium text-sm px-1 pb-1">Pieces in collection: {{ collect.artpiece_set.count }}</h2>    
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No collections to display at this time.</p>
+        {% endif %}
+    </div>
 </div>
-{% endblock  %}
-{% block scripts %}
-<script>
-    function initializeMagnificPopup() {
-      $('.image-link').magnificPopup({
-          type: 'image',
-          gallery: { enabled: true },
-          mainClass: 'mfp-with-zoom',
-          zoom: { enabled: true, duration: 300, easing: 'ease-in-out' }
-      });
-  
-      $('.image-link').click(function(e) {
-          e.preventDefault();
-          var url = $(this).data('mfp-src');
-          $.get($(this).attr('href'), function(data) {
-              $.magnificPopup.open({
-                  items: { src: data.image_url },
-                  type: 'image'
-              });
-          }, 'json');
-      });
-  }
-  
-  $(document).ready(function() {
-      initializeMagnificPopup();
-  });
-  
-  // Billy's fix: Reinitialize the fuckin' MagnificPopup after HTMX swaps in new content
-  document.body.addEventListener('htmx:afterSwap', function() {
-      initializeMagnificPopup();
-  });
-  </script>
-{% endblock %}
+    {% endblock  %}

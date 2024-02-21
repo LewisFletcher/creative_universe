@@ -1,21 +1,119 @@
 {% extends 'index.html' %}
+{% load shop_filters %}
+{% block background_option %}
+bg-contain lg:bg-cover
+{% endblock background_option %}
 {% block content %}
-{% if art %}
-<div class="flex flex-col items-center mx-auto mt-10 pb-4 px-20 md:px-6">
-    <h1 class="flex-1 w-auto text-3xl mt-2 mb-6 text-gray-200 font-bold">{{art.title}}</h1>
-    <img class="md:max-w-md" src="{{ art.image.url }}" alt="{{ art.title }}">
-    <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2"><span class="italic">"{{art.title}}"</span>  By {{ art.creator }}</p>
-    <h2 class="flex-1 w-auto text-xl text-slate-300 font-semibold my-2">{{art.description}}</h1>
-    <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2">Art Type: {{ art.art_type }}</p>
-    <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2">Canvas Size: {{ art.canvas_size }}</p>
-    {% if art.collection.id != 1 %}
-    <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2"><ion-icon name="finger-print-outline" class="align-middle"></ion-icon> Part of the <a href="{% url 'collection_detail' art.collection.id %}"><span class="underline">{{ art.collection }} collection</p><span></a>
-    {% else %}
+<div class="w-full sm:w-9/12 lg:w-8/12 px-4 mx-auto mt-auto">
+    {% if art %}
+    <div class="flex md:flex-row flex-col justify-between mx-auto mt-10 pb-4 px-10 md:px-6">
+        <div class="md:w-1/2">
+            <div x-data="carousel()" x-init="init()" class="relative">
+
+                <template x-for="(image, index) in images" :key="index">
+                    <div x-show="index === activeImage" class="relative transition ease-in-out duration-700">
+                        <img :src="image.url" alt="" class="block mx-auto w-3/4 h-full md:h-1/2 md:max-h-[70vh] object-cover">
+                    </div>
+                </template>
+        
+                <button x-on:click="decrement" class="absolute left-10 md:left-40 top-1/2 transform -translate-y-1/2 p-2 z-10">
+                    <ion-icon class="text-kate-300 text-3xl md:text-5xl" name="chevron-back-circle-outline"></ion-icon>
+                </button>
+                <button x-on:click="increment" class="absolute right-10 md:right-40 top-1/2 transform -translate-y-1/2 p-2 z-10">
+                    <ion-icon class="text-kate-300 text-3xl md:text-5xl" name="chevron-forward-circle-outline"></ion-icon>
+                </button>
+        
+                <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2 items-center">
+                    <template x-for="(img, idx) in images" :key="idx">
+                        <span 
+                            class="cursor-pointer rounded-full"
+                            :class="idx === activeImage ? 'bg-kate-300 w-5 h-5' : 'bg-kate-300 w-4 h-4'" 
+                            @click="activeImage = idx">
+                        </span>
+                    </template>
+                </div>              
+                
+            </div>
+        </div>
+        <div class="flex flex-col items-center mx-auto md:px-4 py-2 md:w-1/2">
+            <div class="self-start md:self-center">
+                <h1 class="flex-1 w-auto text-4xl fomt-semibold text-center text-kate-300 font-semibold my-2">{{art.title}}</h1>
+                <h2 class="flex-1 w-auto text-xl text-center text-slate-300 font-semibold my-2">{{art.long_description}}</h1>
+            </div>
+            <div class="md:self-center">
+                <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2">Art Type: {{ art.art_type }}</p>
+                <p class="flex-1 w-auto text-slate-400 font-light mb-2 md:my-1 md:ml-2">Canvas Size: {{ art.canvas_size }}</p>
+            </div>
+            {% if art.collection.is_collection %}
+            <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2"><ion-icon name="finger-print-outline" class="align-middle"></ion-icon> Part of the <a href="{% url 'collection_detail' art.collection.id %}"><span class="underline">{{ art.collection }} collection</p><span></a>
+            {% endif %}
+            {% if art.total_stock > 0 %}
+            <p class="text-lg">This item is available for ${{art.product.get_price}}</p>
+            {% if art|in_cart:request.session.cart %}
+            <div>
+                <button type="button" class="bg-kate-300 text-white px-1 py-1 rounded-lg text-sm mt-2 mb-1 mr-1 whitespace-nowrap">
+                    <span>In Cart</span>
+                </button>
+            </div>
+            {% else %}
+            <div x-data="{ inCart: false }">
+                <button type="button" class="bg-kate-300 text-white px-1 py-1 rounded-lg text-sm mt-2 mb-1 mr-1 whitespace-nowrap"
+                        hx-post="{% url 'add_to_cart' art.get_model_name art.id %}" 
+                        hx-target="#cart-count"
+                        @click.prevent="inCart = true">
+                    <span x-show="!inCart">Add to Cart</span>
+                    <span x-show="inCart">In Cart</span>
+                </button>
+            </div>
+            {% endif %}
+            {% else %}
+        </div>
     {% endif %}
-    <span class="mt-4 text-md text-blue-400 underline underline-offset-3"><a href="{% url 'all_art' %}">View All Art</a></span>
+    </div>
+    {% else %}
+    <p>Couldn't find this artwork, sorry!</p>
+    {% endif %}
     
 </div>
-{% else %}
-<p>Couldn't find this artwork, sorry!</p>
-{% endif %}
+<script>
+    function carousel() {
+        return {
+            activeImage: 0,
+            {% if art.extra_images %}
+            images: [
+                { url: "{{ art.image.url }}"},
+                {% for image in art.extra_images.all %}
+                { url: "{{ image.image.url }}"},
+                {% endfor %}
+            ],
+            {% else %}
+            images: [
+                { url: "{{ art.image.url }}"},
+            ],
+            {% endif %}
+            interval: null,
+
+            startInterval() {
+                clearInterval(this.interval);
+                this.interval = setInterval(() => {
+                    this.increment();
+                }, 7000);
+            },
+
+            increment() {
+                this.activeImage = (this.activeImage + 1) % this.images.length;
+                this.startInterval();
+            },
+
+            decrement() {
+                this.activeImage = (this.activeImage - 1 + this.images.length) % this.images.length;
+                this.startInterval();
+            },
+
+            init() {
+                this.startInterval();
+            }
+        }
+    }
+</script>
 {% endblock %}

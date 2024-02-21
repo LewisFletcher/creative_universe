@@ -5,76 +5,63 @@
             <a href="/">
                 <span class="font-semibold text-xl truncate max-w-md flex items-center flex-shrink-0">
                     <img src="{% static 'logo.png' %}" class="inline h-[3.5rem] px-2 pt-1 pb-1" alt="CUP"/>
-                    <span class="min-w-[12rem] max-w-[22rem] font-carattere hidden lg:inline text-xl">Creative Universe Productions</span>
+                    <span class="min-w-[12rem] max-w-[22rem] font-carattere hidden xl:inline text-xl">Creative Universe Productions</span>
                 </span>
             </a>
         </div>
         <div class="justify-self-center">
             <div class="flex md:space-x-4 lg:space-x-6 text-white">
-                <a class="text-2xl {% if request.path == '/' %}active:font-extrabold text-purple-500{% endif %}" href="/">Home</a>            
+                <a class="text-2xl {% if request.path == '/' %}underline decoration-4 decoration-kate-100 underline-offset-4{% endif %}" href="/">Home</a>            
                 <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
-                    <a class="text-2xl py-5 {% if 'portfolio' in request.path %}active:font-extrabold text-purple-500{% endif %}" href="{% url 'portfolio' %}">Portfolio</a>            
+                    <a class="text-2xl py-5 {% if 'portfolio' in request.path %}underline decoration-4 decoration-kate-100 underline-offset-4{% endif %}" href="{% url 'portfolio' %}">Portfolio</a>            
                     <ul x-show="open" class="absolute top-[44px] text-white  min-w-full px-4 z-50 rounded-b-md md:block hidden" style="background-image: url('{% static 'universe_lg_b.png' %}')" x-cloak>
                         <li class="py-2"></li>
                         <a href="{% url 'all_collections' %}">
-                            <li class="px-4 py-2 {% if 'collections/' in request.path %}text-purple-500 {% endif %}hover:bg-gray-500 rounded-lg">All Collections</li>
+                            <li class="px-4 py-2 {% if 'collections/' in request.path %}underline decoration-4 decoration-kate-100 underline-offset-4{% endif %}hover:bg-gray-500 rounded-lg">All Collections</li>
                         </a>
                         <a href="{% url 'all_art' %}">
-                            <li class="px-4 py-2 {% if 'art/' in request.path %}text-purple-500 {% endif %}hover:bg-gray-500 rounded-lg">All Art</li>
+                            <li class="px-4 py-2 {% if 'art/' in request.path %}underline decoration-4 decoration-kate-100 underline-offset-4{% endif %}hover:bg-gray-500 rounded-lg">All Art</li>
                         </a>
                         <li class="py-2"></li>
                     </ul>
                 </div>
-                <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
-                    <a class="text-2xl py-5" href="">Shop</a>
-                        <ul x-show="open" class="absolute top-[44px] text-white min-w-full px-4 z-50 rounded-b-md md:block hidden" style="background-image: url('{% static 'universe_lg_b.png' %}')" x-cloak>
-                            <li class="py-2"></li>
-                            <a href="">
-                                <li class="px-4 py-2 hover:bg-gray-500 rounded-lg">Art</li>
-                            </a>
-                            <a href="">
-                                <li class="px-4 py-2 hover:bg-gray-500 rounded-lg">Stickers</li>
-                            </a>
-                            <a href="">
-                                <li class="px-4 py-2 hover:bg-gray-500 rounded-lg">Photography</li>
-                            </a>
-                            <a href="">
-                                <li class="px-4 py-2 hover:bg-gray-500 rounded-lg">Merch</li>
-                            </a>
-                            <li class="py-2"></li>
-                        </ul>
+                <div class="relative">
+                    <a class="text-2xl {% if 'shop' in request.path  %}underline decoration-4 decoration-kate-100 underline-offset-4{% endif %}" href="{% url 'shop' %}">Shop</a>
                 </div>
-                <a class="text-2xl {% if 'about' in request.path  %}active:font-extrabold text-purple-500{% endif %}" href="{% url 'about' %}">About</a>
-                <a class="text-2xl {% if 'contact' in request.path  %}active:font-extrabold text-purple-500{% endif %}" href="">Contact</a>
+                <a class="text-2xl {% if 'about' in request.path  %}underline decoration-4 decoration-kate-100 underline-offset-4{% endif %}" href="{% url 'about' %}">About</a>
+                <a class="text-2xl {% if 'contact' in request.path  %}underline decoration-4 decoration-kate-100 underline-offset-4{% endif %}" href="{% url 'contact' %}">Contact</a>
             </div>
         </div>
         <div class="justify-self-end">
-            <a href="https://instagram.com/creativeuniverseart" target="_blank" class="
-                text-gray-400
-                hover:text-slate-900
+            <a href="https://www.youtube.com/@KateCreates93" target="_blank" class="
+                text-kate-300
+                hover:text-kate-100
                 pl-3
                 py-2
                 pr-5
                 rounded-md
-                font-medium                
+                text-2xl            
+            "><i class="fab fa-youtube"></i></a>
+            <a href="https://instagram.com/creativeuniverseproductions" target="_blank" class="
+                text-kate-300
+                hover:text-kate-100
+                pl-3
+                py-2
+                pr-2
+                rounded-md
+                text-2xl                
             "><i class="fab fa-instagram"></i></a>
-            <a href="https://twitter.com/creativeuniverseart" target="_blank" class="
-                text-gray-400
-                hover:text-slate-900
-                pl-3
-                py-2
-                pr-5
-                rounded-md
-                font-medium                
-            "><i class="fab fa-twitter"></i></a>
+            <span id="cart-count">
+            {% include 'cart_button.html' %}
+            </span>
         </div>
     </nav>
     <div x-data="{ open: false, dropdownHeight: '100px' }" class="relative md:hidden">
-        <div class="flex justify-between items-center px-2" style="background-image: url('{% static 'universe_nav2.png' %}')">
+        <div class="flex justify-between items-center" style="background-image: url('{% static 'universe_nav2.png' %}')">
             <div class="flex items-center">
                 <img src="{% static 'logo.png' %}" class="inline h-[3.5rem] px-2 pt-1 pb-1 z-10" alt="CUP"/>
                 <span class="font-semibold text-xl truncate max-w-xs flex items-center flex-shrink-0">
-                    <span class="inline min-w-[12rem] max-w-[20rem] text-xl">Creative Universe Productions</span>
+                    <span class="inline min-w-[12rem] max-w-[20rem] text-lg">Creative Universe Productions</span>
                 </span>
             </div>
             <button @click="open = !open" class="mobile-menu-button text-3xl cursor-pointer pt-2 mx-2 md:hidden block" id="menu">
@@ -89,7 +76,11 @@
             <a class="text-2xl font-semibold {% if request.path == '/' %}active:font-extrabold text-purple-500{% endif %} hover:bg-black hover:bg-opacity-75 rounded-lg" href="/">Home</a>
             <a class="text-2xl font-semibold {% if 'portfolio' in request.path %}active:font-extrabold text-purple-500{% endif %} hover:bg-black hover:bg-opacity-75 rounded-lg" href="{% url 'portfolio' %}">Portfolio</a>
             <a class="text-2xl font-semibold {% if 'about' in request.path  %}active:font-extrabold text-purple-500{% endif %} hover:bg-black hover:bg-opacity-75 rounded-lg" href="{% url 'about' %}">About</a>
-            <a class="text-2xl font-semibold {% if 'shop' in request.path  %}active:font-extrabold text-purple-500{% endif %} hover:bg-black hover:bg-opacity-75 rounded-lg" href="">Shop</a>
-            <a class="text-2xl font-semibold {% if 'contact' in request.path  %}active:font-extrabold text-purple-500{% endif %} hover:bg-black hover:bg-opacity-75 rounded-lg" href="">Contact</a>
+            <a class="text-2xl font-semibold {% if 'shop' in request.path  %}active:font-extrabold text-purple-500{% endif %} hover:bg-black hover:bg-opacity-75 rounded-lg" href="{% url 'shop' %}">Shop</a>
+            <a class="text-2xl font-semibold {% if 'contact' in request.path  %}active:font-extrabold text-purple-500{% endif %} hover:bg-black hover:bg-opacity-75 rounded-lg" href="{% url 'contact' %}">Contact</a>
+            {% if request.session.cart %}
+            <a class="text-2xl font-semibold {% if 'cart' in request.path  %}active:font-extrabold text-purple-500{% endif %} hover:bg-black hover:bg-opacity-75 rounded-lg" href="{% url 'view_cart' %}">View Cart</a>
+            {% else %}
+            {% endif %}
         </div>
     </div>
