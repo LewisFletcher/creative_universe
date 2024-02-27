@@ -4,15 +4,15 @@
 bg-contain
 {% endblock background_option %}
 {% block content %}
-<div class="flex items-center justify-center h-screen">
+<div class="flex items-center justify-center md:h-screen">
     <div class="w-full sm:w-9/12 lg:w-8/12 px-4">
-        <div class="flex flex-col justify-center">
-            <div class="flex flex-row justify-between space-x-5 mx-auto">
-                <div class="basis-1/2">
+        <div class="flex flex-row md:flex-col {% if not success %} justify-center {% else %} justify-start {% endif %}">
+            <div class="flex flex-col md:flex-row justify-between md:space-x-5 mx-8 md:mx-auto">
+                <div class="md:basis-1/2">
                     <h1 class="text-4xl md:text-3xl my-3">Contact Katelyn</h1>
                     <p class="text-kate-300 text-xl mb-2">Whether you are looking for a commission, have a question, or just want to say hi, I would love to hear from you! Please fill out the form below and I will get back to you as soon as possible.</p>
                 </div>
-                <div class="flex flex-col justify-center w-1/2">
+                <div class="flex flex-col {% if not success %} justify-center {% else %} justify-start {% endif %} md:w-1/2">
                     {% if not success %}
                     <form action="" method="post">
                         {% csrf_token %}

@@ -2,11 +2,12 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views.generic import View, TemplateView, ListView, DetailView
-from artpage.models import ArtPiece, Collection, ArtType
+from artpage.models import ArtPiece, Collection, ArtType, Sticker, Print, PhotographyPrints, Merch
 from django.core.paginator import Paginator
 from django.views.generic.list import MultipleObjectMixin
 from django.http import JsonResponse
 from django.urls import reverse
+from django.apps import apps
 # Create your views here.
 
 
@@ -58,10 +59,21 @@ class AllCollectionView(ListView):
         context["url"] = self.request.path
         return context
 
-class ArtDetailView(DetailView):
-    model = ArtPiece
+class ItemDetailView(DetailView):
     template_name = 'art_detail.html'
     context_object_name = 'art'
+
+    model_mapping = {
+        'sticker_detail': Sticker,
+        'print_detail': Print,
+        'photography_detail': PhotographyPrints,
+        'merch_detail': Merch,
+        'art_detail': ArtPiece
+    }
+
+    def get_queryset(self):
+        model = self.model_mapping[self.request.resolver_match.url_name]
+        return model.objects.all()
 
 class CollectionDetailView(DetailView):
     model = Collection

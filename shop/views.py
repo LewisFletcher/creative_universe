@@ -36,7 +36,7 @@ def get_mixed_latest_items():
 class ShopView(ListView):
     template_name = 'shop.html'
     context_object_name = 'items'
-    paginate_by = 9
+    paginate_by = 12
     
     def get_template_names(self):
         if self.request.htmx:
@@ -50,16 +50,16 @@ class ShopView(ListView):
             if category == 'originals':
                 model_name = 'ArtPiece'
                 context['category'] = 'Originals'
-            if category == 'prints':
+            elif category == 'prints':
                 model_name = 'Print'
                 context['category'] = 'Prints'
-            if category == 'stickers':
+            elif category == 'stickers':
                 model_name = 'Sticker'
                 context['category'] = 'Stickers'
-            if category == 'photography_prints':
+            elif category == 'photography_prints':
                 model_name = 'PhotographyPrints'
                 context['category'] = 'Photography Prints'
-            if category == 'merch':
+            elif category == 'merch':
                 model_name = 'Merch'
                 context['category'] = model_name
         return context

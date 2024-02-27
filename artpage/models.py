@@ -12,6 +12,23 @@ class CollectionManager(models.Manager):
 class NoCollectionManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(collection='1')
+    
+class CommonModelMixin:
+    def get_model_name(self):
+        return self.__class__.__name__
+
+    def in_stock(self):
+        if self.total_stock is None:
+            return True
+        elif self.total_stock > 0:
+            return True
+        else:
+            return False
+
+    def second_image(self):
+        if self.extra_images.all().exists():
+            return self.extra_images.all()[0]
+        return None
 
 # Models
 
@@ -38,12 +55,19 @@ class ExtraImages(models.Model):
 
 class Collection(models.Model):
     name= models.CharField(max_length=50)
-    description= models.CharField(max_length=500)
+    description= models.CharField(max_length=100)
+    long_description = models.TextField(blank=True, null=True, max_length=670)
     image= models.ImageField(blank=True, upload_to='collections/')
     last_updated= models.DateTimeField(auto_now=True)
     objects = models.Manager()
     is_collection = models.BooleanField(default=True)
     all_collections = CollectionManager()
+
+    def second_image(self):
+        if self.artpiece_set.all().count() > 0:
+            return self.artpiece_set.all()[0].image
+        else:
+            return None
 
     def __str__(self):
         return self.name
@@ -66,11 +90,29 @@ class ArtPiece(models.Model):
 
     def get_model_name(self):
         return self.__class__.__name__
+    
+    def in_stock(self):
+        if self.total_stock is None:
+            return True
+        elif self.total_stock > 0:
+            return True
+        else:
+            return False
+        
+    def second_image(self):
+        if self.extra_images.all().count() > 0:
+            print(self.extra_images.all()[0])
+            return self.extra_images.all()[0]
+        else:
+            return None
+        
+    def detail_url(self):
+        return '/portfolio/art/details/' + str(self.id)
 
     def __str__(self):
         return self.title
     
-class Print(models.Model):
+class Print(CommonModelMixin, models.Model):
     title= models.CharField(max_length=50)
     description= models.CharField(max_length=100)
     long_description = models.TextField(blank=True, null=True, max_length=670)
@@ -84,13 +126,13 @@ class Print(models.Model):
     uploaded= models.DateField(auto_now_add=True)
     creator= models.ForeignKey(Creator, on_delete=models.PROTECT, blank=True, null=True)
 
-    def get_model_name(self):
-        return self.__class__.__name__
+    def detail_url(self):
+        return '/shop/prints/details/' + str(self.id)
 
     def __str__(self):
         return self.title
     
-class Sticker(models.Model):
+class Sticker(CommonModelMixin, models.Model):
     title= models.CharField(max_length=50)
     description= models.CharField(max_length=100)
     long_description = models.TextField(blank=True, null=True, max_length=670)
@@ -102,13 +144,13 @@ class Sticker(models.Model):
     uploaded= models.DateField(auto_now_add=True)
     creator= models.ForeignKey(Creator, on_delete=models.PROTECT, blank=True, null=True)
 
-    def get_model_name(self):
-        return self.__class__.__name__
+    def detail_url(self):
+        return '/shop/stickers/details/' + str(self.id)
 
     def __str__(self):
         return self.title
     
-class PhotographyPrints(models.Model):
+class PhotographyPrints(CommonModelMixin, models.Model):
     title= models.CharField(max_length=50)
     description= models.CharField(max_length=100)
     long_description = models.TextField(blank=True, null=True, max_length=670)
@@ -119,13 +161,13 @@ class PhotographyPrints(models.Model):
     uploaded= models.DateField(auto_now_add=True)
     creator= models.ForeignKey(Creator, on_delete=models.PROTECT, blank=True, null=True)
 
-    def get_model_name(self):
-        return self.__class__.__name__
+    def detail_url(self):
+        return '/shop/photography-prints/details/' + str(self.id)
 
     def __str__(self):
         return self.title
     
-class Merch(models.Model):
+class Merch(CommonModelMixin, models.Model):
     title= models.CharField(max_length=50)
     description= models.CharField(max_length=100)
     long_description = models.TextField(blank=True, null=True, max_length=670)
@@ -136,8 +178,8 @@ class Merch(models.Model):
     uploaded= models.DateField(auto_now_add=True)
     creator= models.ForeignKey(Creator, on_delete=models.PROTECT, blank=True, null=True)
 
-    def get_model_name(self):
-        return self.__class__.__name__
+    def detail_url(self):
+        return '/shop/merch/details/' + str(self.id)
 
     def __str__(self):
         return self.title

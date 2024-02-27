@@ -6,8 +6,8 @@ class ContactForm(forms.ModelForm):
         model = Contact
         fields = ['name', 'email', 'message', 'order_number']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'text-black'}),
-            'email': forms.EmailInput(attrs={'class': 'text-black'}),
-            'message': forms.Textarea(attrs={'class': 'text-black'}),
-            'order_number': forms.TextInput(attrs={'class': 'text-black'}),
+            'name': forms.TextInput(attrs={'class': 'bg-kate-200'}),
+            'email': forms.EmailInput(attrs={'class': 'bg-kate-200'}),
+            'message': forms.Textarea(attrs={'class': 'bg-kate-200'}),
+            'order_number': forms.TextInput(attrs={'class': 'bg-kate-200'}),
         }

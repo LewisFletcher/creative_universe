@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 {% block background_option %}
-bg-cover 
+bg-contain
 {% endblock background_option %}
 {% block content %}
 <div class="w-full sm:w-9/12 lg:w-8/12 px-4 mx-auto mt-auto">
@@ -9,15 +9,28 @@ bg-cover
         <h1 class="text-2xl md:text-3xl mt-3 ">{{collection.name}} Collection</h1>
         <h2 class="w-auto text-xl mt-2 mb-6 font-thin text-kate-300">{{collection.description}}</h2>
     </div>
-    <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto mb-4 justify-items-center">
+    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto mb-4 justify-items-center">
         {% for artpiece in collection.artpiece_set.all %}
-        <div class="bg-kate-200 overflow-hidden md:w-64 w-64 mx-2 rounded-lg">
-            <a href="{% url 'art_detail' artpiece.id %}" ><img src="{{ artpiece.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
+        <div class="bg-kate-200 overflow-hidden md:w-64 w-64 mx-2 rounded-lg" x-data="{ hover: false }">
+            <a href="{% url 'art_detail' artpiece.id %}" >
+                {% if artpiece.second_image %}
+                <img :src="hover ? ' {{ artpiece.second_image|safe }}' : '{{ artpiece.image.url }}'" class="h-64 md:h-w-full object-cover transition-transform duration-300" alt="" x-on:mouseenter="hover = true" x-on:mouseleave="hover = false">
+                {% else %}
+                <div class="h-64 md:h-64 w-full overflow-hidden">
+                    <img src="{{ artpiece.image.url }}" class="w-full h-full object-cover transition-transform duration-300" :class="{ 'scale-110': hover }" alt="" x-on:mouseenter="hover = true" x-on:mouseleave="hover = false">
+                </div>
+                {% endif %}
+            </a>
             <a href="{% url 'art_detail' artpiece.id %}" ><h2 class="font-bold bold_underline px-1 pt-1 hover:text-kate-300">{{ artpiece.title }}</h2></a>
             <h2 class="font-medium text-sm px-1 pb-1">{{ artpiece.description }}</h2>    
         </div>
         {% endfor %}
     </div>
+    {% if collection.long_description %}
+    <div class="flex flex-row justify-center">
+        <h3 class="w-auto text-xl text-center mt-2 mb-12 font-thin text-kate-300">{{collection.long_description}}</h3>
+    </div>
+    {% endif %}
     {% else %}
     <p>Couldn't find this collection, sorry!</p>
     {% endif %}

@@ -5,8 +5,8 @@ bg-contain
 {% endblock background_option %}
 {% block content %}
 <div class="w-10/12 xl:w-8/12 px-4 mx-auto mt-auto">
-    <div class="flex xl:flex-row flex-col justify-content-center xl:justify-between px-8 mt-2">
-        <div class="basis-1/2 flex items-center md:px-2">
+    <div class="flex md:flex-row flex-col justify-content-center xl:justify-between px-8 mt-2">
+        <div class="basis-1/2 flex self-start md:self-center pt-10 md:pt-0 md:items-center md:px-2">
             <img class="rounded-lg lg:w-auto" src="{% static 'about_image.jpg' %}">
         </div>
         {% if info %}
@@ -19,7 +19,7 @@ bg-contain
     <div class="flex flex-row items-center justify-center text-3xl text-kate-300 mt-6 mb-4">
         <p class="text-center">More from Katelyn</p>
     </div>
-    <div class="grid grid-cols-1 grid-rows-3 md:grid-cols-3 md:grid-rows-1 md:pb-12 text-2xl justify-items-center md:w-full">
+    <div class="grid grid-cols-1 grid-rows-3 md:grid-cols-3 md:grid-rows-1 md:pb-12 text-2xl justify-items-center md:w-full px-4">
         <span class="text-center">
             <a href="https://www.youtube.com/@KateFilms93" class="hyperlink" target="_blank">KateFilms</a> - for my photography content
         </span>

@@ -2,15 +2,21 @@
 {% load shop_filters %}
 {% load static %}
 {% block background_option %}
-{% if items %}
+{% if items.count == 0 %}
+bg-contain lg:bg-cover
+{% elif not items.count %}
 bg-contain
+{% elif items.count > 1 %}
+bg-contain
+{% elif items.count == 1 %}
+bg-contain xl:bg-cover
 {% else %}  
-bg-contain md:bg-cover
+bg-contain lg:bg-cover
 {% endif %}
 {% endblock %}
 {% block content %}
 <div class="flex items-center justify-center h-full"> <!-- Make sure the container has a height -->
-    <div class="flex flex-row h-16 bg-kate-200 w-[76.5%] justify-center items-center space-x-12 text-lg">
+    <div class="flex flex-col md:flex-row h-auto md:h-16 bg-kate-200 w-[76.5%] self-center justify-center items-center md:space-x-12 text-lg">
         <span>
             <a href="{% url 'shop' %}?category=originals" class="text-white hover:text-kate-300 {% if request.GET.category == 'originals' %}underline decoration-4 decoration-kate-100 underline-offset-4{% endif %}">Originals</a>
         </span>
@@ -33,7 +39,7 @@ bg-contain md:bg-cover
 </div>
 <div class="w-10/12 xl:w-8/12 px-4 mx-auto mt-auto">
     {% if items %}
-    <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto mb-4 justify-items-center">
+    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto mb-4 justify-items-center">
     {% include 'shop_loop.html' %}
     </div>
     {% else %}
