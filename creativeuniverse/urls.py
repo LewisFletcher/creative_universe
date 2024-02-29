@@ -19,6 +19,7 @@ import os
 from django.views.static import serve
 from django.conf.urls.static import static
 from django.conf import settings
+from shop.views import payment_webhook
 
 
 urlpatterns = [
@@ -29,7 +30,9 @@ urlpatterns = [
     path('portfolio/', include('artpage.urls')),
     path('about/', include('about.urls')),
     path('contact/', include('contact.urls')),
+    path('staff/', include('staff.urls')),
     path('markdownx/', include('markdownx.urls')),
+    path('webhooks/stripe/', payment_webhook, name='stripe-webhook'),
 ]
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

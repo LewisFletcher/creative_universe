@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% load tailwind_filters %}
+{% block background_option %}
+bg-contain
+{% endblock background_option %}
+{% block content %}
+<div class="flex items-center justify-center md:h-screen">
+    <div class="w-full sm:w-9/12 lg:w-8/12 px-4">
+        <div class="flex flex-row md:flex-col {% if not success %} justify-center {% else %} justify-start {% endif %}">
+            <div class="flex flex-col md:flex-row justify-between md:space-x-5 mx-8 md:mx-auto">
+                <div class="md:basis-1/2">
+                    <h1 class="text-4xl md:text-3xl my-3">Send Email</h1>
+                    <p class="text-kate-300 text-xl mb-2">Your message will be included in the email. The subject will be the subject!</p>
+                </div>
+                <div class="flex flex-col {% if not success %} justify-center {% else %} justify-start {% endif %} md:w-1/2">
+                    {% if not success %}
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="bg-kate-300 text-white px-4 py-2 rounded-md mt-4">Submit</button>
+                    </form>
+                    {% else %}
+                    <div class="text-center">
+                        <h1 class="text-3xl text-kate-300">Email sent!</h1>
+                    </div>
+                    {% endif %}
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

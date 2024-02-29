@@ -238,9 +238,11 @@ def payment_webhook(request):
         session = event['data']['object']
         order = Order.objects.get(order_id=session['order_id'])
         order.stripe_order_id = session['id']
-        order.customer_paid = session['amount_total']
+        order.total = session['amount_total']
+        order.email = session['customer_details']['email']
         order.status = True
         order.save()
+        order.send_confirmation_email()
         print('Payment was successful.')
     return HttpResponse(status=200)
 

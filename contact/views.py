@@ -13,7 +13,9 @@ class ContactView(View):
     def post(self, request):
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save()
+            contact = form.save()
+            if contact.email:
+                contact.send_email()
             return render(request, 'contact.html', {'form': form, 'success': True})
         return render(request, 'contact.html', {'form': form})
     

@@ -85,11 +85,45 @@ class OrderProduct(models.Model):
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='cust_details', null=True, blank=True)
     order_date = models.DateTimeField(auto_now_add=True)
+    email = models.EmailField(null=True, blank=True)
     status = models.BooleanField(default= False)
     stripe_order_id = models.CharField(max_length=100, null=True)
     fullfilment_date = models.DateTimeField(null=True)
     order_id = models.CharField(max_length=100, null=True)
     total = models.FloatField(default= 0)
+
+    def send_confirmation_email(self):
+        from django.core.mail import send_mail
+        from django.template.loader import render_to_string
+        from django.utils.html import strip_tags
+
+        items = {}
+        for item in self.orderproduct_set.all():
+            items[f"{item.product.name} x {item.quantity}" ] = item.get_total_price()
+
+        html_content = render_to_string('order_confirmation_email.html', {'order': self, 'items': items})
+        plain_message = strip_tags(html_content)
+
+        send_mail(
+            subject='Order Confirmation',
+            message=plain_message,
+            from_email="orders@creativeuniverseproductions.com",
+            recipient_list=[self.email],
+            html_message=html_content,
+            fail_silently=False,
+        )
+
+        staff_html_content = render_to_string('staff_order_email.html', {'order': self, 'items': items})
+        staff_plain_message = strip_tags(staff_html_content)
+
+        send_mail(
+            subject='New order',
+            message=staff_plain_message,
+            from_email="orders@creativeuniverseproductions.com",
+            recipient_list=["KatelynS80@gmail.com"],
+            html_message=staff_html_content,
+            fail_silently=False,
+        )
 
     def generate_order_id():
         import datetime

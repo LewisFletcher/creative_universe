@@ -36,6 +36,12 @@ STRIPE_PUBLISHABLE_KEY = 'pk_live_51OeLuqG86heXUEazstgiRNL17oocJ6UoD2rJX4jm4lZ6u
 
 STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
 
+DEFAULT_FROM_EMAIL = 'support@creativeuniverseproductions.com'
+
+AWS_SES_RETURN_PATH  = 'katelynS80@gmail.com'
+
+SERVER_EMAIL = 'admin@creativeuniverseproductions.com'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -70,6 +76,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'artpage.apps.ArtpageConfig',
     'contact.apps.ContactConfig',
+    'staff.apps.StaffConfig',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
@@ -150,7 +157,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
@@ -182,3 +189,11 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_SES_REGION_NAME = 'us-west-2'
+
+AWS_SES_REGION_ENDPOINT = 'email.us-west-2.amazonaws.com'
+
+ADMINS = [('lewis', 'lew.fletcher3@gmail.com')]
+
+EMAIL_BACKEND = 'django_ses.SESBackend'
