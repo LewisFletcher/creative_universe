@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     'artpage.apps.ArtpageConfig',
     'contact.apps.ContactConfig',
     'staff.apps.StaffConfig',
+    'faq.apps.FaqConfig',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"

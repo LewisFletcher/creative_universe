@@ -31,6 +31,7 @@ urlpatterns = [
     path('about/', include('about.urls')),
     path('contact/', include('contact.urls')),
     path('staff/', include('staff.urls')),
+    path('faq/', include('faq.urls')),
     path('markdownx/', include('markdownx.urls')),
     path('webhooks/stripe/', payment_webhook, name='stripe-webhook'),
 ]
