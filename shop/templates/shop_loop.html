@@ -3,21 +3,26 @@
     <div id="shop-start" class="bg-kate-200 overflow-hidden md:w-64 w-64 mx-2 rounded-lg" {% if forloop.last and page_obj.has_next %} hx-get="{{ url }}?page={{ page_obj.number|add:1 }}" hx-trigger="revealed" hx-swap="afterend" hx-target="#shop-start" {% endif %}>
         <a href="{{item.detail_url}}" x-data="{ hover: false }">
             {% if item.second_image %}
-            <img :src="hover ? ' {{item.second_image|safe}}' : '{{item.image.url}}'" class="h-64 md:h-64 w-full object-cover"alt=""
-                 @mouseover="hover = true"
-                 @mouseleave="hover = false">
+            <div class="relative">
+                <img src="{{item.image.url}}" class="h-64 md:h-64 w-full object-cover" alt="" 
+                     @mouseover="hover = true"
+                     @mouseleave="hover = false">
+                <img src="{{item.second_image|safe}}" class="h-64 md:h-64 w-full object-cover absolute top-0 left-0" alt=""
+                     :class="{ 'hidden': !hover }"
+                     @mouseover="hover = true"
+                     @mouseleave="hover = false">
+            </div>
             {% else %}
             <div class="h-64 md:h-64 w-full overflow-hidden">
                 <img src="{{item.image.url}}" class="w-full h-full object-cover transition-transform duration-300" :class="{ 'scale-110': hover }" alt="" x-on:mouseenter="hover = true" x-on:mouseleave="hover = false">
             </div>
             {% endif %}
         </a>
-        <div class="flex flex-row justify-between">
-            <div class="self-stretch">
-                <a href="{{item.detail_url}}" ><h2 class="font-bold bold_underline px-1 pt-1 hover:text-kate-300">{{ item.title }}</h2></a>
-                <h2 class="font-medium text-sm px-1 w-full">{{ item.description }}</h2>
+        <div class="flex flex-col">
+            <div class="self-center">
+                <a href="{{item.detail_url}}" ><h2 class="font-bold bold_underline text-center px-1 pt-1 hover:text-kate-300">{{ item.title }}</h2></a>
             </div>
-            <div class="flex flex-col justify-end">
+            <div class="flex flex-row justify-between">
                 <div class="self-end">
                     <h2 class="font-bold text-lg px-1 pt-1">${{ item.product.get_price }}</h2>
                 </div>

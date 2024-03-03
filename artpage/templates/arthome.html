@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block background_option %}
-bg-contain 
+bg-contain xxl:bg-cover
 {% endblock background_option %}
 {% block content %}
 <div class="w-full sm:w-9/12 lg:w-8/12 px-4 mx-auto mt-auto">
@@ -21,8 +21,7 @@ bg-contain
                 </div>
             {% endif %}
             </a>
-            <a href="{% url 'art_detail' art.id %}" ><h2 class="font-bold bold_underline px-1 pt-1 hover:text-kate-300">{{ art.title }}</h2></a>
-            <h2 class="font-medium text-sm px-1 pb-1">{{ art.description }}</h2>    
+            <a href="{% url 'art_detail' art.id %}" ><h2 class="font-bold text-center bold_underline px-1 pt-1 pb-1 hover:text-kate-300">{{ art.title }}</h2></a>
         </div>
         {% endfor %}
         {% else %}

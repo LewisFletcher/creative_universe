@@ -1,13 +1,13 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block background_option %}
-bg-contain
+bg-contain xxl:bg-cover
 {% endblock background_option %}
 {% block content %}
 <div class="w-10/12 xl:w-8/12 px-4 mx-auto mt-auto">
     <div class="flex md:flex-row flex-col justify-content-center xl:justify-between px-8 mt-2">
         <div class="basis-1/2 flex self-start md:self-center pt-10 md:pt-0 md:items-center md:px-2">
-            <img class="rounded-lg lg:w-auto" src="{% static 'about_image.jpg' %}">
+            <img class="rounded-lg w-auto lg:w-[70%]" src="{% static 'about_image.jpg' %}">
         </div>
         {% if info %}
         <div class="basis-1/2 flex items-center md:px-2">

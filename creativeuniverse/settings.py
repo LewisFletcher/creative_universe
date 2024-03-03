@@ -170,7 +170,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
-MEDIA_URL = '/media/'
+MEDIA_URL = 'https://d3fjin3vuqewzx.cloudfront.net/'
+
+AWS_S3_CUSTOM_DOMAIN = 'd3fjin3vuqewzx.cloudfront.net'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 
 # Default primary key field type

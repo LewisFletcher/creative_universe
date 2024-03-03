@@ -25,8 +25,7 @@
         {% for art in recent_art %}
         <div class="bg-kate-200 overflow-hidden md:w-64 w-64 mx-2 rounded-lg">
             <a href="{% url 'art_detail' art.id %}" target="_blank" rel="noreferrer"><img src="{{ art.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
-            <a href="{% url 'art_detail' art.id %}" target="_blank" rel="noreferrer"><h2 class="font-bold bold_underline px-1 pt-1">{{ art.title }}</h2></a>
-            <h2 class="font-medium text-sm px-1 pb-1">{{ art.description }}</h2>    
+            <a href="{% url 'art_detail' art.id %}" target="_blank" rel="noreferrer"><h2 class="font-bold text-center pb-1 bold_underline px-1 pt-1">{{ art.title }}</h2></a> 
         </div>
         {% endfor %}
         {% else %}
@@ -41,8 +40,8 @@
         {% for collect in collections %}
         <div class="bg-kate-200 overflow-hidden md:w-64 w-64 mx-2 rounded-lg">
             <a href="{% url 'collection_detail' collect.id %}" target="_blank" rel="noreferrer"><img src="{{ collect.image.url }}" class="h-64 md:h-64 w-full object-cover"alt=""></a>
-            <a href="{% url 'collection_detail' collect.id %}" target="_blank" rel="noreferrer"><h2 class="font-bold bold_underline px-1 pt-1">{{ collect.name }}</h2></a>
-            <h2 class="font-medium text-sm px-1 pb-1">Pieces in collection: {{ collect.artpiece_set.count }}</h2>    
+            <a href="{% url 'collection_detail' collect.id %}" target="_blank" rel="noreferrer"><h2 class="font-bold text-center bold_underline px-1 pt-1">{{ collect.name }}</h2></a>
+            <h2 class="font-medium text-center text-sm px-1 pb-1">Pieces in collection: {{ collect.artpiece_set.count }}</h2>    
         </div>
         {% endfor %}
         {% else %}
