@@ -9,5 +9,5 @@ class FAQView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['faqs'] = FAQ.objects.all()
+        context['faqs'] = FAQ.objects.all().order_by('order')
         return context
