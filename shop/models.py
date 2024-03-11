@@ -81,6 +81,15 @@ class OrderProduct(models.Model):
 
     def __str__(self):
         return self.product.name
+    
+class ShippingRate(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    stripe_shipping_id = models.CharField(max_length=100)
+    shipping_description = models.CharField(max_length=300, null=True)
+    price = models.FloatField(default=0)
+
+    def __str__(self):
+        return self.name
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='cust_details', null=True, blank=True)

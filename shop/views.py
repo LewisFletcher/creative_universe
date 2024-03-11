@@ -6,7 +6,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView, CreateView, DetailView, UpdateView, ListView
-from .models import Price, Product, Order, Customer, ShippingAddress, OrderProduct
+from .models import Price, Product, Order, Customer, ShippingAddress, OrderProduct, ShippingRate
 from django.utils.html import mark_safe
 from django.db.models import Q
 from datetime import datetime, timedelta
@@ -149,7 +149,7 @@ def create_stripe_checkout_session(request):
         order = Order.objects.get(id=request.session['order_id'])
         if order.status == False:
             order.delete()
-        del request.session['order_id']
+            del request.session['order_id']
     
     total = 0
     for item_key, quantity in cart.items():
@@ -178,6 +178,10 @@ def create_stripe_checkout_session(request):
             quantity=quantity,
             item_key=item_key
         )
+    shipping_rates = []
+    for shipping_rate in ShippingRate.objects.all():
+        shipping_rates.append(shipping_rate.stripe_shipping_id)
+    stripe_shipping_options = [{'shipping_rate': rate_id} for rate_id in shipping_rates]
     session = stripe.checkout.Session.create(
         payment_intent_data={
                 'metadata' : {'order_id': order_id}
@@ -192,7 +196,18 @@ def create_stripe_checkout_session(request):
         cancel_url=cancel_url,
         automatic_tax={'enabled': True},
         billing_address_collection='auto',
-        shipping_address_collection={'allowed_countries': ['US', 'CA']},
+        shipping_address_collection={'allowed_countries': [
+            "AC", "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AQ", "AR", "AT", "AU", "AW", "AX", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", 
+            "BL", "BM", "BN", "BO", "BQ", "BR", "BS", "BT", "BV", "BW", "BY", "BZ", "CA", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR", "CV", "CW", 
+            "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "EH", "ER", "ES", "ET", "FI", "FJ", "FK", "FO", "FR", "GA", "GB", "GD", "GE", "GF", "GG", "GH", 
+            "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS", "GT", "GU", "GW", "GY", "HK", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IM", "IN", "IO", "IQ", "IS", "IT", "JE", "JM", 
+            "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME", "MF", "MG", 
+            "MK", "ML", "MM", "MN", "MO", "MQ", "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NC", "NE", "NG", "NI", "NL", "NO", "NP", "NR", "NU", "NZ", "OM", "PA", "PE", "PF", 
+            "PG", "PH", "PK", "PL", "PM", "PN", "PR", "PS", "PT", "PY", "QA", "RE", "RO", "RS", "RU", "RW", "SA", "SB", "SC", "SE", "SG", "SH", "SI", "SJ", "SK", "SL", "SM", "SN", "SO", "SR", 
+            "SS", "ST", "SV", "SX", "SZ", "TA", "TC", "TD", "TF", "TG", "TH", "TJ", "TK", "TL", "TM", 
+            "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VN", "VU", "WF", "WS", "XK", "YE", "YT", "ZA", "ZM", "ZW", "ZZ"
+        ]},
+        shipping_options=stripe_shipping_options,
         phone_number_collection={'enabled': True},
     )
     return redirect(session.url, code=303)
@@ -236,7 +251,8 @@ def payment_webhook(request):
     # Handle the event
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        order = Order.objects.get(order_id=session['order_id'])
+        order_id = session.get('metadata', {}).get('order_id')
+        order = Order.objects.get(id=order_id)
         order.stripe_order_id = session['id']
         order.total = session['amount_total']
         order.email = session['customer_details']['email']
@@ -248,6 +264,7 @@ def payment_webhook(request):
 
 def payment_cancelled(request):
     cart = request.session.get('cart', {})
+    del request.session['order_id']
     items = []
     total = 0
     for item_key, quantity in cart.items():

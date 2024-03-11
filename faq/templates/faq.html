@@ -8,28 +8,28 @@ bg-contain xxl:bg-cover
     <div class="flex flex-col justify-center px-8 mt-2">
         {% if faqs %}
         <h1 class="md:text-4xl text-2xl underline my-4 font-bold text-center">Frequently Asked Questions</h1>
-        <div class="flex flex-col mt-4">
+        <div class="flex flex-col mt-4" x-data="{ openFaq: null }">
             {% for faq in faqs %}
-            <div x-data="{ open: false }" class="flex flex-col mt-4">
+            <div class="flex flex-col mt-4">
                 <div class="flex flex-row justify-between">
-                    <h2 class="text-2xl font-bold text-kate-300">{{faq.question}}</h2>
-                    <button @click="open = !open" class="focus:outline-none">
-                        <svg :class="{'rotate-180': open}" class="w-6 h-6 text-kate-300" fill="none" stroke="currentColor"
+                    <h2 class="text-2xl font-bold text-kate-300">{{ faq.question }}</h2>
+                    <button @click="openFaq = openFaq === {{ forloop.counter0 }} ? null : {{ forloop.counter0 }}" class="focus:outline-none">
+                        <svg :class="{'rotate-180': openFaq === {{ forloop.counter0 }}}" class="w-6 h-6 text-kate-300" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
                 </div>
-                <div x-show="open" class="mt-2" style="display: none;">
-                    <p class="">{{faq.answer}}</p>
+                <div x-show="openFaq === {{ forloop.counter0 }}" class="mt-2" style="display: none;">
+                    <p>{{ faq.answer }}</p>
                 </div>
             </div>
             {% endfor %}
+        </div>
         {% else %}
         <h1 class="text-3xl font-bold text-center text-kate-300">No FAQs available</h1>
         {% endif %}
     </div>
 </div>
-
 {% endblock %}

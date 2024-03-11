@@ -43,7 +43,7 @@ AWS_SES_RETURN_PATH  = 'katelynS80@gmail.com'
 SERVER_EMAIL = 'admin@creativeuniverseproductions.com'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ADMINS = [('lewis', 'lew.fletcher3@gmail.com')]
 
