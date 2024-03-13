@@ -254,7 +254,9 @@ def payment_webhook(request):
         order_id = session.get('metadata', {}).get('order_id')
         order = Order.objects.get(id=order_id)
         order.stripe_order_id = session['id']
-        order.total = session['amount_total']
+        total_in_cents = session['amount_total']
+        dollars = total_in_cents / 100
+        order.total = dollars
         order.email = session['customer_details']['email']
         order.status = True
         order.save()
