@@ -78,6 +78,22 @@ class OrderProduct(models.Model):
 
     def get_total_price(self):
         return self.quantity * self.product.get_price()
+    
+    def get_product_from_item_key(self):
+        from django.apps import apps
+        from django.core.exceptions import ObjectDoesNotExist
+        """Extracts and returns the product from the item_key."""
+        if not self.item_key:
+            return None
+
+        try:
+            model_name, item_id = self.item_key.split('_')
+            model = apps.get_model('artpage', model_name)
+            item = model.objects.get(pk=item_id)
+            return item
+        except (ValueError, ObjectDoesNotExist):
+            return None
+
 
     def __str__(self):
         return self.product.name
@@ -100,6 +116,7 @@ class Order(models.Model):
     fullfilment_date = models.DateTimeField(null=True)
     order_id = models.CharField(max_length=100, null=True)
     total = models.FloatField(default= 0)
+    completed = models.BooleanField(default=False)
 
     def send_confirmation_email(self):
         from django.core.mail import send_mail

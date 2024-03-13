@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+{% load tailwind_filters %}
+{% block background_option %}
+bg-cover
+{% endblock background_option %}
+{% block content %}
+<div class="flex items-center justify-center">
+    <div class="w-full sm:w-9/12 lg:w-8/12 px-4">
+        <div class="flex flex-row md:flex-col justify-center">
+        <div class="self-center my-4">
+            <h1 class="text-4xl md:text-3xl my-3">Viewing Order {{order.order_id}}</h1>
+            <p class="text-kate-300 text-xl mb-2">Date Ordered: {{order.order_date}}</p>
+            
+        </div>
+        <div class="self-center text-lg border p-6 w-full">
+            <p>Customer Email: {{order.email}}</p>
+            <p>Stripe Order ID: {{order.stripe_order_id}}</p>
+            <p>Order Total: ${{order.total|floatformat:2}}</p>
+            <h2 class="text-xl my-2">Products:</h2>
+            {% for order_product in order_products %}
+            <div class="border-t-4">
+                <p>Item: <a class="hyperlink" href="{{order_product.get_product_from_item_key.detail_url}}">{{order_product.get_product_from_item_key}}</p></a>
+                <p>Quantity: {{ order_product.quantity }}</p>
+                <p>Stripe Product: {{ order_product.product.name }} - {{order_product.product.stripe_product_id}}</p>
+                <p>Price: ${{ order_product.price.price }} - {{order_product.price.stripe_price_id}}</p>
+                <p>Status: {{ order.status|yesno:"Payment Completed, Payment Rejected" }}</p>
+            </div>
+            {% empty %}
+                <p>No products in this order.</p>
+            {% endfor %}
+            </ul>
+        </div>
+    </div class="self-end">
+        <a href="{% url "order_complete" order.pk %}"><button type="button" class="bg-kate-300 rounded-lg px-2 mt-4">Mark Complete</button></a>
+    </div>
+</div>
+{% endblock %}

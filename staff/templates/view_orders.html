@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% load tailwind_filters %}
+{% block background_option %}
+bg-contain
+{% endblock background_option %}
+{% block content %}
+<div class="flex items-center justify-center">
+    <div class="w-full sm:w-9/12 lg:w-8/12 px-4">
+        <div class="flex flex-row md:flex-col justify-center">
+        <div class="md:basis-1/2">
+            <h1 class="text-4xl md:text-3xl my-3">View Orders</h1>
+            <p class="text-kate-300 text-xl mb-2">Mark orders as completed to remove them from this list.</p>
+        </div>
+        <div>
+            {% for order in object_list %}
+                <div class="border p-4 my-2">
+                    <h2 class="text-2xl">Order ID: <a class="hyperlink" href="{% url "order_detail" order.pk %}">{{ order.order_id }}</a></h2>
+                    <p>Date Ordered: {{ order.order_date }}</p>
+                    <p>Customer Email: {{order.email}}</p>
+                    <p>Stripe Order ID: ${{ order.stripe_order_id }}</p>
+                    <p>Total: ${{ order.total }}</p>
+                    <p>Status: {{ order.status|yesno:"Payment Completed, Payment Rejected" }}</p>
+                </div>
+            {% empty %}
+                <p>No orders to display.</p>
+            {% endfor %}
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
