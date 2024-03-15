@@ -16,11 +16,11 @@
                     <a class="text-2xl py-5 {% if 'portfolio' in request.path %}underline decoration-4 decoration-kate-100 underline-offset-4{% endif %}" href="{% url 'portfolio' %}">Portfolio</a>            
                     <ul x-show="open" class="absolute top-[44px] text-white  min-w-full px-4 z-50 rounded-b-md md:block hidden" style="background-image: url('{% static 'universe_lg_b.png' %}')" x-cloak>
                         <li class="py-2"></li>
-                        <a href="{% url 'all_collections' %}">
-                            <li class="px-4 py-2 {% if 'collections/' in request.path %}underline decoration-4 decoration-kate-100 underline-offset-4{% endif %}hover:bg-gray-500 rounded-lg">All Collections</li>
-                        </a>
                         <a href="{% url 'all_art' %}">
                             <li class="px-4 py-2 {% if 'art/' in request.path %}underline decoration-4 decoration-kate-100 underline-offset-4{% endif %}hover:bg-gray-500 rounded-lg">All Art</li>
+                        </a>
+                        <a href="{% url 'all_collections' %}">
+                            <li class="px-4 py-2 {% if 'collections/' in request.path %}underline decoration-4 decoration-kate-100 underline-offset-4{% endif %}hover:bg-gray-500 rounded-lg">All Collections</li>
                         </a>
                         <li class="py-2"></li>
                     </ul>

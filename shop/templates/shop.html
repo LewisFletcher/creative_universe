@@ -15,7 +15,8 @@ bg-contain lg:bg-cover
 {% endif %}
 {% endblock %}
 {% block content %}
-<div class="flex items-center justify-center h-full"> <!-- Make sure the container has a height -->
+
+<div class="flex items-center justify-center h-full mx-auto"> <!-- Make sure the container has a height -->
     <div class="flex flex-col md:flex-row h-auto md:h-16 bg-kate-200 w-[76.5%] self-center justify-center items-center md:space-x-12 text-lg">
         <span>
             <a href="{% url 'shop' %}?category=originals" class="text-white hover:text-kate-300 {% if request.GET.category == 'originals' %}underline decoration-4 decoration-kate-100 underline-offset-4{% endif %}">Originals</a>
@@ -37,13 +38,13 @@ bg-contain lg:bg-cover
 <div class="flex flex-row justify-center mx-auto">
     <h1 class="text-2xl md:text-3xl my-3">{% if not request.GET.category %}Recent Added Items{% else %}{{category}}{% endif %}</h1>
 </div>
-<div class="w-10/12 xl:w-8/12 px-4 mx-auto mt-auto">
+<div class="w-full xl:w-8/12 px-4 mx-auto mt-auto">
     {% if items %}
     <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-10 px-2 py-2 mx-auto mb-4 justify-items-center">
     {% include 'shop_loop.html' %}
     </div>
     {% else %}
-    <p class="text-center mt-6">Sorry! Nothing to display here at this time.</p>
+    <p class="text-center mt-6 mx-8">Sorry! Nothing to display here at this time.</p>
     {% endif %}
 </div>
     
