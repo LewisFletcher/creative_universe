@@ -6,11 +6,13 @@
 bg-contain lg:bg-cover
 {% elif not items.count %}
 bg-contain
+{% elif items.count == 2 %}
+bg-contain xl:bg-cover
 {% elif items.count > 1 %}
 bg-contain
 {% elif items.count == 1 %}
 bg-contain xl:bg-cover
-{% else %}  
+{% else %}
 bg-contain lg:bg-cover
 {% endif %}
 {% endblock %}

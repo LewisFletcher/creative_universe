@@ -51,10 +51,12 @@ bg-contain
                 <h1 class="flex-1 w-auto text-2xl md:text-4xl fomt-semibold text-center text-kate-300 mt-8 mb-2">{{art.title}}</h1>
                 <h2 class="flex-1 w-auto text-lg md:text-xl text-center text-slate-300 my-2">{{art.long_description}}</h1>
             </div>
+            {% if art.art_type %}
             <div class="md:self-center">
                 <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2">Art Type: {{ art.art_type }}</p>
                 <p class="flex-1 w-auto text-slate-400 font-light mb-2 md:my-1 md:ml-2">Canvas Size: {{ art.canvas_size }}</p>
             </div>
+            {% endif %}
             {% if art.collection.is_collection %}
             <p class="flex-1 w-auto text-slate-400 font-light md:my-1 md:ml-2"><ion-icon name="finger-print-outline" class="align-middle"></ion-icon> Part of the <a href="{% url 'collection_detail' art.collection.id %}"><span class="underline">{{ art.collection }} collection</p><span></a>
             {% endif %}
