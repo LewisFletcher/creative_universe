@@ -28,16 +28,16 @@
                 </div>
                 {% if item|in_cart:request.session.cart %}
                 <div class="self-end">
-                    <button type="button" class="bg-kate-300 text-white px-1 py-1 rounded-lg text-sm mt-2 mb-1 mr-1 whitespace-nowrap">
+                    <a href="{% url "view_cart" %}"><button type="button" class="bg-kate-300 text-white px-1 py-1 rounded-lg text-sm mt-2 mb-1 mr-1 whitespace-nowrap">
                         <span>In Cart</span>
                     </button>
-                </div>
+                </div></a>
                 {% else %}
                 <div x-data="{ inCart: false }">
                     <button type="button" class="bg-kate-300 text-white px-1 py-1 rounded-lg text-sm mt-2 mb-1 mr-1 whitespace-nowrap"
-                            hx-post="{% url 'add_to_cart' item.get_model_name item.id %}" 
+                            hx-post="{% url 'add_to_cart' item.get_model_name item.id %}"
                             hx-target="#cart-count"
-                            @click.prevent="inCart = true">
+                            @click.prevent="inCart ? window.location.href='{% url 'cart_page' %}' : null">
                         <span x-show="!inCart">Add to Cart</span>
                         <span x-show="inCart">In Cart</span>
                     </button>
