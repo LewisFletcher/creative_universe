@@ -34,12 +34,15 @@
                 </div></a>
                 {% else %}
                 <div x-data="{ inCart: false }">
-                    <button type="button" class="bg-kate-300 text-white px-1 py-1 rounded-lg text-sm mt-2 mb-1 mr-1 whitespace-nowrap"
+                    <button x-show="!inCart" type="button" class="bg-kate-300 text-white px-1 py-1 rounded-lg text-sm mt-2 mb-1 mr-1 whitespace-nowrap"
                             hx-post="{% url 'add_to_cart' item.get_model_name item.id %}"
                             hx-target="#cart-count"
-                            @click.prevent="inCart ? window.location.href='{% url 'cart_page' %}' : null">
-                        <span x-show="!inCart">Add to Cart</span>
-                        <span x-show="inCart">In Cart</span>
+                            @click.prevent="inCart = true">
+                        <span>Add to Cart</span>
+                    </button>
+                    <button x-show="inCart" type="button" class="bg-kate-300 text-white px-1 py-1 rounded-lg text-sm mt-2 mb-1 mr-1 whitespace-nowrap"
+                            @click.prevent="window.location.href='{% url 'view_cart' %}'">
+                        <span>In Cart</span>
                     </button>
                 </div>
                 {% endif %}
