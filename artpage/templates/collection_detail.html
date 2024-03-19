@@ -21,8 +21,9 @@ bg-contain
                 </div>
                 {% endif %}
             </a>
-            <a href="{% url 'art_detail' artpiece.id %}" ><h2 class="font-bold bold_underline px-1 pt-1 hover:text-kate-300">{{ artpiece.title }}</h2></a>
-            <h2 class="font-medium text-sm px-1 pb-1">{{ artpiece.description }}</h2>    
+            <a href="{% url 'art_detail' artpiece.id %}" >
+                <h2 class="font-bold bold_underline px-1 pt-1 hover:text-kate-300">{{ artpiece.title }}</h2>
+            </a>
         </div>
         {% endfor %}
     </div>

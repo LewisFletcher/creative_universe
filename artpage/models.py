@@ -74,7 +74,6 @@ class Collection(models.Model):
 
 class ArtPiece(models.Model):
     title= models.CharField(max_length=50)
-    description= models.CharField(max_length=100)
     long_description = models.TextField(blank=True, null=True, max_length=670)
     total_stock = models.IntegerField(null=True, blank=True)
     art_type= models.ForeignKey(ArtType, on_delete=models.CASCADE)
@@ -114,7 +113,6 @@ class ArtPiece(models.Model):
     
 class Print(CommonModelMixin, models.Model):
     title= models.CharField(max_length=50)
-    description= models.CharField(max_length=100)
     long_description = models.TextField(blank=True, null=True, max_length=670)
     total_stock = models.IntegerField(null=True, blank=True)
     art_type= models.ForeignKey(ArtType, on_delete=models.CASCADE)
@@ -134,7 +132,6 @@ class Print(CommonModelMixin, models.Model):
     
 class Sticker(CommonModelMixin, models.Model):
     title= models.CharField(max_length=50)
-    description= models.CharField(max_length=100)
     long_description = models.TextField(blank=True, null=True, max_length=670)
     total_stock = models.IntegerField(null=True, blank=True)
     sticker_type= models.ForeignKey(ArtType, on_delete=models.CASCADE)
@@ -152,7 +149,6 @@ class Sticker(CommonModelMixin, models.Model):
     
 class PhotographyPrints(CommonModelMixin, models.Model):
     title= models.CharField(max_length=50)
-    description= models.CharField(max_length=100)
     long_description = models.TextField(blank=True, null=True, max_length=670)
     total_stock = models.IntegerField(null=True, blank=True)
     product = models.ForeignKey('shop.Product', on_delete=models.PROTECT, blank=True, null=True)
@@ -169,7 +165,6 @@ class PhotographyPrints(CommonModelMixin, models.Model):
     
 class Merch(CommonModelMixin, models.Model):
     title= models.CharField(max_length=50)
-    description= models.CharField(max_length=100)
     long_description = models.TextField(blank=True, null=True, max_length=670)
     total_stock = models.IntegerField(null=True, blank=True)
     product = models.ForeignKey('shop.Product', on_delete=models.PROTECT, blank=True, null=True)
