@@ -4,7 +4,7 @@
 bg-contain
 {% endblock background_option %}
 {% block content %}
-<div class="w-full md:w-9/12 lg:w-8/12 px-4 mx-auto mt-auto h-screen">
+<div class="w-full md:w-9/12 lg:w-8/12 px-4 mx-auto mt-auto h-screen" x-cloak>
     {% if art %}
     <div class="flex xl:flex-row flex-col justify-between mx-auto mt-10 pb-4 px-6">
         <div class="xl:w-1/2 self-center">
@@ -12,7 +12,7 @@ bg-contain
 
                 <template x-for="(image, index) in images" :key="index">
                     <div x-show="index === activeImage" class="relative transition ease-in-out duration-700">
-                        <img :src="image.url" alt="" class="block mx-auto w-3/4 h-full md:h-1/2 lg:max-h-[70vh] object-cover">
+                        <img :src="image.url" alt="" class="block mx-auto w-3/4 h-full md:h-1/2 lg:max-h-[70vh] object-cover" @click="showModal = true; modalImage = image.url">
                     </div>
                 </template>
         
@@ -31,7 +31,18 @@ bg-contain
                             @click="activeImage = idx">
                         </span>
                     </template>
-                </div>              
+                </div>
+
+                <div x-show="showModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" @click.away="showModal = false">
+                    <div class="relative max-w-3xl max-h-full p-4" @click.stop>
+                        <!-- Image in Modal -->
+                        <img x-bind:src="modalImage" class="block w-full max-h-[80vh] mx-auto">
+                        <!-- Close Button -->
+                        <button @click="showModal = false" class="absolute top-0 right-0 m-4 text-white hover:text-gray-300">
+                            <ion-icon name="close-circle-outline" class="text-4xl text-kate-200"></ion-icon>
+                        </button>
+                    </div>
+                </div>
                 
             </div>
         </div>
@@ -79,6 +90,8 @@ bg-contain
     function carousel() {
         return {
             activeImage: 0,
+            showModal: false,
+            modalImage: '',
             {% if art.extra_images %}
             images: [
                 { url: "{{ art.image.url|safe }}"},
