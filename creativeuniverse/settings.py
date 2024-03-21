@@ -20,7 +20,7 @@ NPM_BIN_PATH = r'C:\Program Files\\nodejs\\npm.cmd'
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
-ALLOWED_HOSTS = ['.creativeuniverseproductions.com']
+ALLOWED_HOSTS = ['.creativeuniverseproductions.com', 'creativeuniverseproductions.com']
 
 CSRF_TRUSTED_ORIGINS = ['https://creativeuniverseproductions.com', 'https://www.creativeuniverseproductions.com']
 
