@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'markdownx',
     "crispy_forms",
     "crispy_tailwind",
+    'django_recaptcha',
 
     #Apps
     'home.apps.HomeConfig',
