@@ -39,8 +39,6 @@ SERVER_EMAIL = 'admin@creativeuniverseproductions.com'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ADMINS = [('lewis', 'lew.fletcher3@gmail.com')]
-
 TAILWIND_APP_NAME = 'theme' #tailwind src
 # Application definition
 
