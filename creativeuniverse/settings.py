@@ -4,13 +4,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-#Tailwind requires - change in production
-
-INTERNAL_IPS = [
-    "0.0.0.0",
-]
-
-NPM_BIN_PATH = r'C:\Program Files\\nodejs\\npm.cmd'
+#NPM_BIN_PATH = r'C:\Program Files\\nodejs\\npm.cmd'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -165,6 +159,10 @@ USE_I18N = True
 USE_TZ = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SECURE_SSL_REDIRECT = True
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
