@@ -18,8 +18,16 @@ class ContactView(View):
             print('valid')
             contact = form.save()
             if contact.email:
-                print('sending email')
-                contact.send_email()
+                try:
+                    print('sending email')
+                    contact.send_email()
+                    print('email sent')
+                except Exception as e:
+                    print(f"Error sending email: {e}")
             return render(request, 'contact.html', {'form': form, 'success': True})
+        else:
+            print('form not valid')
+            # Log or print the form errors, especially useful for debugging
+            print(form.errors)
         return render(request, 'contact.html', {'form': form})
     
