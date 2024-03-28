@@ -1,5 +1,5 @@
 {% load shop_filters %}
-{% if request.session.cart %}
+{% if request.session.get('cart', None) %}
     <a href="{% url 'view_cart' %}" class="
         text-kate-300
         hover:text-kate-100
