@@ -181,6 +181,8 @@ RECAPTCHA_PRIVATE_KEY = os.environ['RECAPTCHA_PRIVATE_KEY']
 
 RECAPTCHA_REQUIRED_SCORE = 0.85
 
+RECAPTCHA_DOMAIN = 'www.recaptcha.net'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
