@@ -236,6 +236,7 @@ LOGGING = {
     'loggers': {
         'django.security.DisallowedHost': {
             'handlers': ['null'],
+            'level': 'ERROR',
             'propagate': False,
         },
         'django': {
