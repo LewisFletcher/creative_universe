@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
+import logging
 
+logger = logging.getLogger(__name__)
 # Create your models here.
 
 class Contact(models.Model):
@@ -14,31 +16,35 @@ class Contact(models.Model):
     def send_email(self):
         from django.core.mail import send_mail
         
-        html_content = render_to_string('customer_contact_email.html', {'contact': self})
-        plain_message = strip_tags(html_content)
+        try:
+            html_content = render_to_string('customer_contact_email.html', {'contact': self})
+            plain_message = strip_tags(html_content)
 
-        send_mail(
-            subject='Thanks for getting in touch!',
-            message=plain_message,
-            from_email="contact@creativeuniverseproductions.com",
-            recipient_list=[self.email],
-            html_message=html_content,
-            fail_silently=False,
-        )
+            send_mail(
+                subject='Thanks for getting in touch!',
+                message=plain_message,
+                from_email="contact@creativeuniverseproductions.com",
+                recipient_list=[self.email],
+                html_message=html_content,
+                fail_silently=False,
+            )
 
-        staff_html_content = render_to_string('staff_contact_email.html', {'contact': self})
-        staff_plain_message = strip_tags(staff_html_content)
+            staff_html_content = render_to_string('staff_contact_email.html', {'contact': self})
+            staff_plain_message = strip_tags(staff_html_content)
 
-        send_mail(
-            subject='New contact form submission',
-            message=staff_plain_message,
-            from_email="contact@creativeuniverseproductions.com",
-            recipient_list=["KatelynS80@gmail.com"],
-            html_message=staff_html_content,
-            fail_silently=False,
-        )
+            send_mail(
+                subject='New contact form submission',
+                message=staff_plain_message,
+                from_email="contact@creativeuniverseproductions.com",
+                recipient_list=["KatelynS80@gmail.com"],
+                html_message=staff_html_content,
+                fail_silently=False,
+            )
 
-        print('email sent')
+            logger.info('Contact email sent successfully.')
+        except Exception as e:
+            logger.error(f'Error sending contact email: {e}')
+
 
 
     def __str__(self):

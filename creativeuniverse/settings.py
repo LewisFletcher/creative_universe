@@ -34,7 +34,7 @@ DEFAULT_FROM_EMAIL = 'support@creativeuniverseproductions.com'
 
 AWS_SES_RETURN_PATH  = 'katelynS80@gmail.com'
 
-SERVER_EMAIL = 'admin@creativeuniverseproductions.com'
+#SERVER_EMAIL = 'admin@creativeuniverseproductions.com'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -227,7 +227,7 @@ LOGGING = {
         'django': {
             'handlers': ['console'],
             'level': 'ERROR',
-            'propagate': True,
+            'propagate': False, 
         },
     },
 }
