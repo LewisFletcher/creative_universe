@@ -225,11 +225,23 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.NullHandler',
         },
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
     },
     'loggers': {
         'django.security.DisallowedHost': {
             'handlers': ['null'],
             'propagate': False,
+        },
+        'django': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
         },
     },
 }
