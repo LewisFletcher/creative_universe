@@ -240,7 +240,7 @@ LOGGING = {
         },
         'django': {
             'handlers': ['console', 'mail_admins'],
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'propagate': True,
         },
     },
