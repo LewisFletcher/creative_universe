@@ -220,6 +220,12 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'filters': {
+        'ignore_disallowed_host': {
+            '()': 'django.utils.log.CallbackFilter',
+            'callback': lambda record: not record.msg.startswith('Invalid HTTP_HOST header'),
+        },
+    },
     'handlers': {
         'null': {
             'level': 'DEBUG',
@@ -231,6 +237,7 @@ LOGGING = {
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
+            'filters': ['ignore_disallowed_host'],
         },
     },
     'loggers': {
