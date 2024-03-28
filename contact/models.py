@@ -38,6 +38,8 @@ class Contact(models.Model):
             fail_silently=False,
         )
 
+        print('email sent')
+
 
     def __str__(self):
         return self.name

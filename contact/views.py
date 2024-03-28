@@ -11,10 +11,14 @@ class ContactView(View):
         return render(request, 'contact.html', {'form': form})
 
     def post(self, request):
+        print(request.POST)
+        print(request.META.get('REMOTE_ADDR'))
         form = ContactForm(request.POST)
         if form.is_valid():
+            print('valid')
             contact = form.save()
             if contact.email:
+                print('sending email')
                 contact.send_email()
             return render(request, 'contact.html', {'form': form, 'success': True})
         return render(request, 'contact.html', {'form': form})
