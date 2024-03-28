@@ -36,8 +36,6 @@ AWS_SES_RETURN_PATH  = 'katelynS80@gmail.com'
 
 SERVER_EMAIL = 'admin@creativeuniverseproductions.com'
 
-ADMINS = [('lewis', 'lew.fletcher3@gmail.com')]
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -220,35 +218,15 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'filters': {
-        'ignore_disallowed_host': {
-            '()': 'django.utils.log.CallbackFilter',
-            'callback': lambda record: not record.msg.startswith('Invalid HTTP_HOST header'),
-        },
-    },
     'handlers': {
-        'null': {
-            'level': 'DEBUG',
-            'class': 'logging.NullHandler',
-        },
         'console': {
             'class': 'logging.StreamHandler',
         },
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-            'filters': ['ignore_disallowed_host'],
-        },
     },
     'loggers': {
-        'django.security.DisallowedHost': {
-            'handlers': ['null'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
         'django': {
-            'handlers': ['console', 'mail_admins'],
-            'level': 'INFO',
+            'handlers': ['console'],
+            'level': 'ERROR',
             'propagate': True,
         },
     },
