@@ -20,7 +20,8 @@ class Contact(models.Model):
             html_content = render_to_string('customer_contact_email.html', {'contact': self})
             plain_message = strip_tags(html_content)
 
-            send_mail(
+            logger.info(f'Sending contact email to {self.email}...')
+            customer_email_status = send_mail(
                 subject='Thanks for getting in touch!',
                 message=plain_message,
                 from_email="contact@creativeuniverseproductions.com",
@@ -28,22 +29,24 @@ class Contact(models.Model):
                 html_message=html_content,
                 fail_silently=False,
             )
+            logger.info(f'Contact email sent to {self.email}. Status: {customer_email_status}')
 
             staff_html_content = render_to_string('staff_contact_email.html', {'contact': self})
             staff_plain_message = strip_tags(staff_html_content)
 
-            send_mail(
+            logger.info('Sending contact email to staff...')
+            staff_email_status = send_mail(
                 subject='New contact form submission',
                 message=staff_plain_message,
                 from_email="contact@creativeuniverseproductions.com",
-                recipient_list=["KatelynS80@gmail.com"],
+                recipient_list=["contact@creativeuniverseproductions.com"],
                 html_message=staff_html_content,
                 fail_silently=False,
             )
+            logger.info(f'Contact email sent to staff. Status: {staff_email_status}')
 
-            logger.info('Contact email sent successfully.')
         except Exception as e:
-            logger.error(f'Error sending contact email: {e}')
+            logger.error(f'Error sending contact email: {e}', exc_info=True)
 
 
 
